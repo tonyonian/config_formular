@@ -1,7 +1,14 @@
 
     
 <?php
-
+/**
+ * @file        Startseite.php
+ * @author      Ümit Yildirim <tutorials@elipso.de>
+ * @copyright   Copyright (c) 2024, Ümit Yildirim. Alle Rechte vorbehalten.
+ * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
+ * @version     1.0.0
+ * @since       2024-11-26
+ */
     class StartSeite
     {
         function render()
