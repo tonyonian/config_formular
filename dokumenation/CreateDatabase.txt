@@ -1,0 +1,248 @@
+
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema glorixx
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema glorixx
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `glorixx` DEFAULT CHARACTER SET utf8mb3 ;
+USE `glorixx` ;
+
+-- -----------------------------------------------------
+-- Table `glorixx`.`mandant`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `glorixx`.`mandant` (
+  `name` VARCHAR(45) NOT NULL,
+  `logo` LONGBLOB NULL DEFAULT NULL,
+  PRIMARY KEY (`name`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `glorixx`.`emailconfiguration`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `glorixx`.`emailconfiguration` (
+  `mandant_name` VARCHAR(45) NOT NULL,
+  `smtpHost` VARCHAR(45) NULL DEFAULT NULL,
+  `smtpPort` INT NULL DEFAULT NULL,
+  `smtpBenutzer` VARCHAR(45) NULL DEFAULT NULL,
+  `smtpPasswort` VARCHAR(45) NULL DEFAULT NULL,
+  `smtpVerschluesselung` TINYINT NULL DEFAULT NULL,
+  `bccEmail` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`mandant_name`),
+  CONSTRAINT `fk_emailconfiguration_mandant1`
+    FOREIGN KEY (`mandant_name`)
+    REFERENCES `glorixx`.`mandant` (`name`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `glorixx`.`menuefarben`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `glorixx`.`menuefarben` (
+  `mandant_name` VARCHAR(45) NOT NULL,
+  `hintergrundfarbe` VARCHAR(45) NULL DEFAULT NULL,
+  `schriftfarbe` VARCHAR(45) NULL DEFAULT NULL,
+  `iconfarbe` VARCHAR(45) NULL DEFAULT NULL,
+  `pfeilfarbe` VARCHAR(45) NULL DEFAULT NULL,
+  `hoverfarbe` VARCHAR(45) NULL DEFAULT NULL,
+  `headerfarbe` VARCHAR(45) NULL DEFAULT NULL,
+  `headerbuttonfarbe` VARCHAR(45) NULL DEFAULT NULL,
+  `loginhintergrundfarbe` VARCHAR(45) NULL DEFAULT NULL,
+  `loginfensterfarbe` VARCHAR(45) NULL DEFAULT NULL,
+  `loginschriftfarbe` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`mandant_name`),
+  CONSTRAINT `fk_menuefarben_mandant1`
+    FOREIGN KEY (`mandant_name`)
+    REFERENCES `glorixx`.`mandant` (`name`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `glorixx`.`menuesortierung`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `glorixx`.`menuesortierung` (
+  `mandant_name` VARCHAR(45) NOT NULL,
+  `artikel INT NULL DEFAULT NULL,
+  `kalender` INT NULL DEFAULT NULL,
+  `kunde` INT NULL DEFAULT NULL,
+  `projekt` INT NULL DEFAULT NULL,
+  `lieferant` INT NULL DEFAULT NULL,
+  `ticket` INT NULL DEFAULT NULL,
+  `vorgang` INT NULL DEFAULT NULL,
+  `vertrag` INT NULL DEFAULT NULL,
+  `offenePosten` INT NULL DEFAULT NULL,
+  `dienstleistungen` INT NULL DEFAULT NULL,
+  `lager` INT NULL DEFAULT NULL,
+  `produktion` INT NULL DEFAULT NULL,
+  `auswertung` INT NULL DEFAULT NULL,
+  `webshop` INT NULL DEFAULT NULL,
+  `verleihartikel` INT NULL DEFAULT NULL,
+  `geraet` INT NULL DEFAULT NULL,
+  `schnittstelle` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`mandant_name`),
+  CONSTRAINT `fk_menuesortierung_mandant1`
+    FOREIGN KEY (`mandant_name`)
+    REFERENCES `glorixx`.`mandant` (`name`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `glorixx`.`mitarbeiter`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `glorixx`.`mitarbeiter` (
+  `mandant_name` VARCHAR(45) NOT NULL,
+  `benutzername` VARCHAR(45) NOT NULL,
+  `anrede` VARCHAR(45) NULL DEFAULT NULL,
+  `vorname` VARCHAR(45) NULL DEFAULT NULL,
+  `nachname` VARCHAR(45) NULL DEFAULT NULL,
+  `position` VARCHAR(45) NULL DEFAULT NULL,
+  `email` VARCHAR(45) NULL DEFAULT NULL,
+  `bccEmail` VARCHAR(45) NULL DEFAULT NULL,
+  `firmaTelefon` INT NULL DEFAULT NULL,
+  `firmaMobil` INT NULL DEFAULT NULL,
+  `firmaFax` INT NULL DEFAULT NULL,
+  `passwort` VARCHAR(255) NULL DEFAULT NULL,
+  `aktiviert` TINYINT NULL DEFAULT NULL,
+  `anmeldungOk` TINYINT NULL DEFAULT NULL,
+  `apiZugang` TINYINT NULL DEFAULT NULL,
+  `apiSchluessel` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`mandant_name`, `benutzername`),
+  CONSTRAINT `fk_mitarbeiter_mandant`
+    FOREIGN KEY (`mandant_name`)
+    REFERENCES `glorixx`.`mandant` (`name`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `glorixx`.`mitarbeiterdaten`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `glorixx`.`mitarbeiterdaten` (
+  `mitarbeiter_mandant_name` VARCHAR(45) NOT NULL,
+  `mitarbeiter_benutzername` VARCHAR(45) NOT NULL,
+  `strasse` VARCHAR(45) NULL DEFAULT NULL,
+  `hausnummer` INT NULL DEFAULT NULL,
+  `plz` INT NULL DEFAULT NULL,
+  `stadt` VARCHAR(45) NULL DEFAULT NULL,
+  `land` VARCHAR(45) NULL DEFAULT NULL,
+  `telefon` INT NULL DEFAULT NULL,
+  `mobil` INT NULL DEFAULT NULL,
+  `fax` INT NULL DEFAULT NULL,
+  `email` VARCHAR(45) NULL DEFAULT NULL,
+  `iban` VARCHAR(45) NULL DEFAULT NULL,
+  `bic` VARCHAR(45) NULL DEFAULT NULL,
+  `bank` VARCHAR(45) NULL DEFAULT NULL,
+  `bemerkung` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`mitarbeiter_mandant_name`, `mitarbeiter_benutzername`),
+  CONSTRAINT `fk_mitarbeiterdaten_mitarbeiter1`
+    FOREIGN KEY (`mitarbeiter_mandant_name` , `mitarbeiter_benutzername`)
+    REFERENCES `glorixx`.`mitarbeiter` (`mandant_name` , `benutzername`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `glorixx`.`vorgangssortierung`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `glorixx`.`vorgangssortierung` (
+  `mandant_name` VARCHAR(45) NOT NULL,
+  `angebot` INT NULL DEFAULT NULL,
+  `auftragsbestaetigung` INT NULL DEFAULT NULL,
+  `serviceauftrag` INT NULL DEFAULT NULL,
+  `teilLieferschein` INT NULL DEFAULT NULL,
+  `lieferschein` INT NULL DEFAULT NULL,
+  `rechnung` INT NULL DEFAULT NULL,
+  `proformaRechnung` INT NULL DEFAULT NULL,
+  `individualBestellung` INT NULL DEFAULT NULL,
+  `stornorechnungGutschrift` INT NULL DEFAULT NULL,
+  `mahnung` INT NULL DEFAULT NULL,
+  `bestellung` INT NULL DEFAULT NULL,
+  `eingangsrechnung` INT NULL DEFAULT NULL,
+  `eingangslieferschein` INT NULL DEFAULT NULL,
+  `produktionsauftrag` INT NULL DEFAULT NULL,
+  `ruecknahme` INT NULL DEFAULT NULL,
+  `verleihrueckname` INT NULL DEFAULT NULL,
+  `webbestellung` INT NULL DEFAULT NULL,
+  `packschein` INT NULL DEFAULT NULL,
+  `fertigstellung` INT NULL DEFAULT NULL,
+  `preisanfrage` INT NULL DEFAULT NULL,
+  `brief` INT NULL DEFAULT NULL,
+  `zahlungserinnerung` INT NULL DEFAULT NULL,
+  `zweiteMahnung` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`mandant_name`),
+  CONSTRAINT `fk_vorgangssortierung_mandant1`
+    FOREIGN KEY (`mandant_name`)
+    REFERENCES `glorixx`.`mandant` (`name`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `glorixx`.`zahlungen`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `glorixx`.`zahlungen` (
+  `mandant_name` VARCHAR(45) NOT NULL,
+  `euro` TINYINT NULL DEFAULT NULL,
+  `dollar` TINYINT NULL DEFAULT NULL,
+  `yen` TINYINT NULL DEFAULT NULL,
+  `britischerPfund` TINYINT NULL DEFAULT NULL,
+  `australischeDollar` TINYINT NULL DEFAULT NULL,
+  `kanadischeDollar` TINYINT NULL DEFAULT NULL,
+  `schweizerFranken` TINYINT NULL DEFAULT NULL,
+  `chinesischeRenminbi` TINYINT NULL DEFAULT NULL,
+  `schwedischeKrone` TINYINT NULL DEFAULT NULL,
+  `neuseelaendischerDollar` TINYINT NULL DEFAULT NULL,
+  PRIMARY KEY (`mandant_name`),
+  CONSTRAINT `fk_zahlungen_mandant1`
+    FOREIGN KEY (`mandant_name`)
+    REFERENCES `glorixx`.`mandant` (`name`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `glorixx`.`mandantenListe`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `glorixx`.`mandantenListe` (
+  `mandant_name` VARCHAR(45) NOT NULL,
+  `mandant_name_json` JSON NOT NULL,
+  PRIMARY KEY (`mandant_name`),
+  CONSTRAINT `fk_mandantenListe_mandant1`
+    FOREIGN KEY (`mandant_name`)
+    REFERENCES `glorixx`.`mandant` (`name`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
