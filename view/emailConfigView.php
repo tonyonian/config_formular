@@ -19,7 +19,7 @@
         <img src="./images/LogoGlorixx.png" />
 
         <h2>
-            Vorgangssortierung:
+            E-Mail
             <?php
                 session_start();
                 echo $_SESSION['mandantname']; 
@@ -34,7 +34,7 @@
             Weiter zur nächsten Seite
             <input type="submit" id="weiter" name="action" value="weiter" >
             <br>
-            <h1>Neuer Mandant</h1>
+            <h3>E-Mail Einstellungen:</h3>
 
             <?php if($error): ?>
                 <p style="color: red;"> <?=htmlspecialchars($error) ?></p>
@@ -57,7 +57,7 @@
                                     else{echo $value;} 
                                 ?>"
                             id="<?= $value ?>" name="<?= $value ?>"  
-                            value="<?= isset($emailliste[$value]) ? htmlspecialchars(trim($emailliste[$value])) : '' ?>"
+                            value="<?= (isset($emailliste[$value]) && $value !== 'smtpPasswort') ? htmlspecialchars(trim($emailliste[$value])) : '' ?>"
                 /><br><br>
                 
             <?php endforeach;?>
