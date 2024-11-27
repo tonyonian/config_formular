@@ -18,14 +18,7 @@
         <img src="./images/LogoHeintze.png" />
         <img src="./images/LogoGlorixx.png" />
 
-        <h2>
-            E-Mail
-            <?php
-                session_start();
-                echo $_SESSION['mandantname']; 
-                session_write_close();
-                ?>
-        </h2>
+       
 
         <form action="" method="post">
             Zurück zur Startseite
@@ -34,6 +27,15 @@
             Weiter zur nächsten Seite
             <input type="submit" id="weiter" name="action" value="weiter" >
             <br>
+            <h2>
+                E-Mail
+                <?php
+                    session_start();
+                    echo $_SESSION['mandantname']; 
+                    session_write_close();
+                ?>
+            </h2>
+            
             <h3>E-Mail Einstellungen:</h3>
 
             <?php if($error): ?>

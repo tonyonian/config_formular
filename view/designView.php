@@ -19,19 +19,27 @@
         <img src="./images/LogoGlorixx.png" />
 
         <form action="" method="post">
-
             Zurück zur Startseite
-            <input type="submit" id="zurueck" name="action" value="zurueck" >
+            <input type="submit" id="zurück" name="action" value="zurück" >
+        
             Weiter zur nächsten Seite
-            <input type="submit"  name="action" value="weiter" >
+            <input type="submit" id="weiter" name="action" value="weiter" >
             <br>
-            <p>Menüfarbe:</p><br><br>
+            <h2>
+                Design
+                <?php
+                    session_start();
+                    echo $_SESSION['mandantname']; 
+                    session_write_close();
+                ?>
+            </h2>
+            <h3>Menüfarbe:</h3>
 
             <p>Die Menüfarbe der GLORiXX ERP kann individuell angepasst werden.</p>
 
             <?php if($error): ?>
-            <p style="color: red;"> <?=htmlspecialchars($error) ?></p>
-        <?php endif; ?>
+                <p style="color: red;"> <?=htmlspecialchars($error) ?></p>
+            <?php endif; ?>
             <?php
 
                 $config = array('Hinergrundfarbe' => 'hintergrundfarbe', 'Schriftfarbe' => 'schriftfarbe', 'Icon Farbe' => 'iconfarbe',
