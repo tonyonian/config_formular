@@ -25,14 +25,17 @@
         {
             session_start();
                 $_SESSION['mandantname'] = $name;
-                $_SESSION['mandantlogo'] = $logopfad;
             session_write_close();
         }
         function uploadLogo($name, $logopfad)
         {
+            session_start();
+                $_SESSION['mandantname'] = $name;
+                $_SESSION['mandantlogo'] = $logopfad;
+            session_write_close();
             $load = true;
             $error = '';
-            $this->updateView($error,$name,$logopfad,$load);
+            $this->updateView($error,$name,$load);
         }
 
 
@@ -66,8 +69,9 @@
           
         }
 
-        function updateView($error,$name,$logopfad,$issetLogo)
+        function updateView($error,$name,$issetLogo)
         {
+            $logopfad = $_SESSION['mandantlogo'] ?? '';
             $this->view->render($error,$name,$logopfad,$issetLogo);
         }
 

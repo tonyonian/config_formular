@@ -38,7 +38,7 @@
             <?php endif; ?> 
             <!-- Mandanten Name eingeben -->
             <label for="name">Mandanten Name:</label>
-            <input type="text"  name="name" value="<?= htmlspecialchars(stripslashes(trim($name))) ?>" ><br>
+            <input type="text"  name="name" value="<?=isset($_SESSION['mandantname']) ? htmlspecialchars(stripslashes(trim($_SESSION['mandantname']))): '' ?>" ><br>
                 
                 
             <!-- Logo hochladen -->
