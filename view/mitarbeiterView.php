@@ -55,7 +55,7 @@
                                     else{echo $val;} 
                                 ?>"
                             id="<?= $val ?>" name="<?= $val ?>"  
-                            value="<?= isset($mitarbeiterInfo[$val]) ? htmlspecialchars(trim($mitarbeiterInfo[$val])) : '' ?>"
+                            value="<?= (isset($mitarbeiterInfo[$val]) &&  $val !== 'passwort') ? htmlspecialchars(trim($mitarbeiterInfo[$val])) : '' ?>"
                 /><br><br>
                 
             <?php endforeach;?>
