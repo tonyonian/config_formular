@@ -11,6 +11,10 @@
     {
         public function render($error='',$name ='',$zieldatei='',$issetLogo=false)
         {
+            if(isset($_SESSION['mandantlogo']))
+            {
+                $issetLogo = true;
+            }
 ?>
 
 <Doctype html>
