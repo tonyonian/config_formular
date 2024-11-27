@@ -51,7 +51,7 @@
                     $dateiname = preg_replace('/[^A-Za-z0-9_\-]/', '_', $logo["name"]);
 
 
-                    $ziel = './temp/logo/';
+                    $ziel = '../temp/logo/';
 
                     $dateiname = $ziel.basename($dateiname);
                     

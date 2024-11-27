@@ -9,7 +9,7 @@
  */
     if (session_status() == PHP_SESSION_NONE) 
     {   
-        session_save_path('./temp/session');    
+        session_save_path('../temp/session');    
         session_start();
             $_SESSION['sessionName'] = session_name(); 
             $_SESSION['sessionId'] = session_id();
