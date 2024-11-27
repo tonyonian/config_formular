@@ -17,21 +17,24 @@
     <body>
         <img src="./images/LogoHeintze.png" />
         <img src="./images/LogoGlorixx.png" />
-        <h2>
-            Email-Vorlagen
-            <?php
-                session_start();
-                $_SESSION['mandantname']; 
-                session_write_close();
-            ?>
-        </h2>
+       
 
         <form action="" method="post">
-            Zurück zur Startseite
-            <input type="submit" id="zurück" name="action" value="zurück" >
-            Weiter zur nächsten Seite
-            <input type="submit"  name="action" value="weiter" >
-            <br>
+            <p>
+                Zurück zur Startseite
+                <input type="submit" id="zurück" name="action" value="zurück" >
+            
+                Weiter zur nächsten Seit
+                <input type="submit"  name="action" value="weiter" >
+            </p>
+            <h2>
+                Email-Vorlagen
+                <?php
+                    session_start();
+                        $_SESSION['mandantname']; 
+                    session_write_close();
+                ?>
+            </h2>
         </form>
             
         

@@ -38,8 +38,9 @@ class DesignController
                     exit();
             }
 
-            if($action === 'zurueck')
+            if($action === 'zurück')
             {
+                $this->model->setDesignConfig($designConfig);
                 session_write_close();
                 header('Location: index.php?seite=emailVorlage&'.$_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
                 exit();
@@ -47,6 +48,6 @@ class DesignController
 
             
         }
-        $this->model->updateView($error,$designConfig);
+        $this->model->updateView($error);
     }
 }

@@ -33,7 +33,7 @@
         <br>
         <form action="" method="post">
             Zurück zur Startseite
-            <input type="submit" id="zurueck" name="action" value="zurueck" >
+            <input type="submit" id="zurück" name="action" value="zurück" >
             Daten unwiederruflich senden
             <input type="submit" id="absenden" name="action" value="absenden" >
             <br>

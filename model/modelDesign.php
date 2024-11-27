@@ -60,8 +60,9 @@ class DesignModel
 
     }
 
-    function updateView($error,$designConfig)
+    function updateView($error)
     {
+        $designConfig = $_SESSION['design_config'];
         $this->designView->render($error,$designConfig);
     }
 }

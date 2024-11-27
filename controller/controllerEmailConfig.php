@@ -50,7 +50,7 @@
                     //Validierungen der SMTP server
                     if(empty($emailliste['smtpHost']) || empty($emailliste['smtpPort']) || empty($emailliste['smtpBenutzer']) || empty($emailliste['smtpPasswort']))
                     {
-                       echo "leere eingabe";
+                       
                         $error = "Bitte alle SMTP-Server-Daten ausfüllen.";
                     }
                     //Validerung vom Format des SMTP-Server-Daten
@@ -93,6 +93,7 @@
 
                 if($action === 'zurück')
                 {
+                    $this->modelEmail->setEmailListe($emailliste);
                     session_write_close();
                     header('Location: index.php?seite=mitarbeiterDaten&'.$_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
                     exit();

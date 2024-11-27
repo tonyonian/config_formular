@@ -107,6 +107,7 @@ class MitarbeiterController
 
             if($action === "zurück")
             {
+                $this->mitarbeiterModel->setMitarbeiterInfo('',$mitarbeiterInfo);
                 session_write_close();
                 header('Location: index.php?seite=mandant&' .$_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
                 exit;

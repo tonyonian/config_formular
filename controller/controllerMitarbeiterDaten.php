@@ -44,8 +44,8 @@
                 }
                 if($action === "zurück")
                 {
-                    session_write_close();   
                     $this->mitarbeiterDatenmodel->setMitarbeiterDaten($mitarbeiterDaten);
+                    session_write_close();   
                     header('Location: index.php?seite=mitarbeiter&' . $_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
                     exit();
                 }

@@ -67,9 +67,12 @@ class ZahlungController
             }
             
     
-            if ($action === 'zurueck')
+            if ($action === 'zurück')
             {
-    
+                $this->modelListe[7]->setZahlungenListe($zahlungListe);
+                session_write_close();
+                header('Location: index.php?seite=vorgang&'.$_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
+                exit();
             }
     
             

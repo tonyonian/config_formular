@@ -39,8 +39,9 @@ class MenuSortController
                 exit();
             }
 
-            if($action === 'zurueck')
+            if($action === 'zurück')
             {
+                $this->model->setMenuRang($menuSortRang);
                 session_write_close();
                 header('Location: index.php?seite=design&'.$_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
                 exit();
@@ -49,7 +50,7 @@ class MenuSortController
 
         }
 
-        $this->model->updateView($menuSortRang);
+        $this->model->updateView();
     }
     
     
