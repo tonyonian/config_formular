@@ -69,18 +69,8 @@
 
         function updateView()
         {
-            session_start();
-            if(!empty($_SESSION['mitarbeiterDaten']))
-            {
-                $mitInfo = $_SESSION['mitarbeiterDaten'];
-            }
-            else
-            {
-                $mitInfo=[];
-            }
-            
-            session_write_close();
+        
 
-        $this->view->render($mitInfo);
+        $this->view->render();
         }
     }

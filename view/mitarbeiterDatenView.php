@@ -9,7 +9,7 @@
  */
     class MitarbeiterDatenView
     {
-        public function render($mitarbeiterDaten=[])
+        public function render()
         {
 ?>
 <Doctype html>
@@ -44,12 +44,12 @@
                                     else{echo $value;} 
                                 ?>"
                             id="<?= $value ?>" name="<?= $value ?>"  
-                            value="<?= isset($mitarbeiterdDaten[$value]) ? htmlspecialchars(trim($mitarbeiterdDaten[$value])) : '' ?>"
-                /><br><br>
+                            value="<?= isset($_SESSION['mitarbeiterDaten'][$value]) ? htmlspecialchars(trim($_SESSION['mitarbeiterDaten'][$value])) : '' ?>"/>
+                <br><br>
                 
             <?php endforeach;?>
             <label for="bemerkung">Bemerkung:</label>
-            <textarea name="bemerkung" cols="40" rows="5"></textarea><br>
+            <textarea name="bemerkung" cols="40" rows="5" ><?= isset($_SESSION['mitarbeiterDaten']['bemerkung']) ? htmlspecialchars(trim($_SESSION['mitarbeiterDaten']['bemerkung'])) : '' ?></textarea><br>
         </form>
     </body>
 </html>

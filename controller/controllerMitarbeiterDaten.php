@@ -52,7 +52,7 @@
                 
             }
            
-                $this->mitarbeiterDatenmodel->updateView('');
+                $this->mitarbeiterDatenmodel->updateView();
             
             
         }
