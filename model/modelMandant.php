@@ -21,12 +21,17 @@
         }
 
         
-        function setMandantInfo($name,$logopfad)
+        function setMandantInfo($name,$logopfad='')
         {
             session_start();
                 $_SESSION['mandantname'] = $name;
+                $_SESSION['mandantlogo'] = $logopfad;
             session_write_close();
+        
         }
+
+       
+
         function uploadLogo($name, $logopfad)
         {
             session_start();
@@ -69,12 +74,12 @@
           
         }
 
-        function updateView($error,$name,$issetLogo)
+        function updateView($error,$issetLogo=false)
         {
             session_start();
                 $logopfad = $_SESSION['mandantlogo'] ?? '';
             session_write_close();
-            $this->view->render($error,$name,$logopfad,$issetLogo);
+            $this->view->render($error,$logopfad,$issetLogo);
         }
 
 

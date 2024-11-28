@@ -47,8 +47,7 @@
             oder auch auf YouTube unter <a href="http://www.youtube.com/@glorixxsoftware1735">www.youtube.com/@glorixxsoftware1735</a>
             <br><br>
 
-            <?php session_write_close(); ?> 
-            <button onclick="window.location.href='index.php?seite=mandant&<?php echo $_SESSION['sessionName']; ?>=<?php echo $_SESSION['sessionId']; ?>'">Starte Formular</button>
+            <button onclick="window.location.href='index.php?seite=mandant '">Starte Formular</button>
 
     </body>
 </html>

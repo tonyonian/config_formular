@@ -112,10 +112,11 @@
                     }
                     
                     
-                    
+                     
                 }
                 else
                 {
+                    $this->mandantModel->setMandantInfo($name);
                     $error = "Bitte ein Bild auswählen.";
                 }
                

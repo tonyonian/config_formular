@@ -9,7 +9,7 @@
  */
     class MandantView
     {
-        public function render($error='',$name ='',$zieldatei='',$issetLogo=false)
+        public function render($error='',$zieldatei='',$issetLogo=false)
         {
             if(isset($_SESSION['mandantlogo']))
             {

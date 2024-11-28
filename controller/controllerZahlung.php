@@ -20,19 +20,25 @@ class ZahlungController
     {
         $zahlungListe =[];
 
-        foreach ($_POST as $key => $value)
-        {
-            if($value === 'on')
-            {
-                $value = 1;
-            }
-            
-            $zahlungListe[$key] = htmlspecialchars(stripslashes(trim($value)));
-        }
+       
 
         if($_SERVER['REQUEST_METHOD'] === 'POST')
         {
             $action = $_POST['action'];
+
+            foreach ($_POST as $key => $value)
+            {
+                if($value === 'on')
+                {
+                    $value = 1;
+                }
+                if($value === 'off')
+                {
+                    $value = 0;
+                }
+                
+                $zahlungListe[$key] = htmlspecialchars(stripslashes(trim($value)));
+            }
 
             if ($action === 'absenden')
             {

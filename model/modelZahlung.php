@@ -25,11 +25,9 @@
         function setZahlungenListe($zahlungenliste)
         {
             session_start();
-                $_SESSION['zahlungenListe']=[];
-
                 foreach ($zahlungenliste as $key => $val)
                 {
-                    $_SESSION['zahlungenListe'][$key] = $val;
+                    $_SESSION['zahlungenListe'][$key] = $val ?? 0;
                 }    
                 unset($_SESSION['zahlungenListe']['action']);
                 $_SESSION['zahlungenListe'] = array_merge(['mandant_name' => $_SESSION['mandantname']],$_SESSION['zahlungenListe']);

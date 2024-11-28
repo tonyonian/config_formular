@@ -46,18 +46,12 @@
                 'Neuseeländischer Dollar' => array('neuseelaendischerDollar','NZD','$')  );
 
                 foreach($waehrungNamen as $name => $vorgang):
+                    $checked = (isset($waehrungListe[vorgang[0]]) && $waehrungListe[vorgang[0]] == 1) ? 'checked' : ''; 
             ?>
                     <label for=<?=$vorgang[0]?>><?=$name?><?=$vorgang[1] ?><?=$vorgang[2] ?></label>
-                    
-                    <?php 
-                        if (isset($waehrungListe[$vorgang[0]]) && $waehrungListe[$vorgang[0]] == 1): 
-                    ?>
-                            <input type="checkbox" id=<?=$vorgang[0]?> name="<?=$vorgang[0]?>" checked value="1">
-                    <?php else: ?>
-                            <input type="hidden" name="<?=$vorgang[0]?>" value=0>
-                            <input type="checkbox" id=<?=$vorgang[0]?> name="<?=$vorgang[0]?>">
-                    
-                    <?php endif; ?>
+                    <input type="hidden" name="<?=$vorgang[0]?>" value=0>
+                    <input type="checkbox" id=<?=$vorgang[0]?> name="<?=$vorgang[0]?>" value=<?= $checked ?>>
+                  
                     <br>
             <?php endforeach;?>
         </form>
