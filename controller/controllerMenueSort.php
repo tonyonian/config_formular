@@ -25,7 +25,9 @@ class MenuSortController
         {
             foreach($_POST as $key => $value)
             {
-                $menuSortRang[$key] = htmlspecialchars(stripslashes(trim($value)));
+                $value = trim($value) ?? '';
+                $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+                $menuSortRang[$key] = $value;
             }
 
             $action = $_POST['action'] ?? '';

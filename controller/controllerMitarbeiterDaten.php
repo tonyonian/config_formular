@@ -29,7 +29,10 @@
                 
                 foreach($_POST as $key => $val)
                 {
-                    $mitarbeiterDaten[$key] = htmlspecialchars(stripslashes(trim($val))) ?? 'null';
+                   
+                    $val = trim($val) ?? '';
+                    $val = htmlspecialchars($val, ENT_QUOTES, 'UTF-8');
+                    $mitarbeiterDaten[$key] = $val;
                 }
                 
                 

@@ -37,7 +37,9 @@ class ZahlungController
                     $value = 0;
                 }
                 
-                $zahlungListe[$key] = htmlspecialchars(stripslashes(trim($value)));
+                $value = trim($value) ?? '';
+                $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+                $zahlungListe[$key] = $value;
             }
 
             if ($action === 'absenden')

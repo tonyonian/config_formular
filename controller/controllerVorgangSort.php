@@ -25,7 +25,9 @@ class VorgangSortController
         {
             foreach($_POST as $key => $value)
             {
-                $vorgangSortRang[$key] = htmlspecialchars(stripslashes(trim($value)));
+                $value = trim($value) ?? '';
+                $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+                $vorgangSortRang[$key] = $value;
             }
 
             $action = $_POST['action'] ?? '';

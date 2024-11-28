@@ -26,7 +26,9 @@
         public function handleRequest()
         {
             $name =$_POST['name'] ?? '';
-            $name =  htmlspecialchars(stripslashes(trim($name)));
+            $name = trim($name);
+            $name =  htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+            
             $issetLogo = $_POST['issetLogo'] ?? false;
             $dateiname = '';
             

@@ -41,7 +41,9 @@
                 {
                     $val = $val ? 1 : 0 ;
                 }
-                    $emailliste[$key] = htmlspecialchars(stripslashes(trim($val)));
+                    $val = trim($val) ?? '';
+                    $val = htmlspecialchars($val, ENT_QUOTES, 'UTF-8');
+                    $emailliste[$key] = $val;
                 }
 
                 if($action === 'weiter')

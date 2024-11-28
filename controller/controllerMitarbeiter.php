@@ -42,7 +42,7 @@ class MitarbeiterController
                     $val = $val ? 1 : 0 ;
                 }
                 
-                $val = trim($val);
+                $val = trim($val) ?? '';
                 $val =  htmlspecialchars($val, ENT_QUOTES, 'UTF-8');
                 $mitarbeiterInfo[$key] = $val;
                

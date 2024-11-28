@@ -26,7 +26,9 @@ class DesignController
         {
             foreach($_POST as $key => $val)
             {
-                $designConfig[$key]=htmlspecialchars(stripslashes(trim($val)));
+                $val = trim($val) ?? '';
+                $val = htmlspecialchars($val, ENT_QUOTES, 'UTF-8');
+                $designConfig[$key] = $val;
             } 
 
             $action = $_POST['action'];
