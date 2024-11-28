@@ -45,6 +45,10 @@
     require './view/zahlungView.php';
 
     $seite = $_GET['seite'] ?? 'start';
+    $seite = preg_replace('/[^a-zA-Z]/', '', $seite);
+    $seite = trim($seite);
+    $seite = htmlspecialchars($seite, ENT_QUOTES, 'UTF-8');
+
     $pdo = null;
 
     switch ($seite)
