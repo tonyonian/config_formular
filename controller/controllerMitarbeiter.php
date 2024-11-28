@@ -42,7 +42,7 @@ class MitarbeiterController
                     $val = $val ? 1 : 0 ;
                 }
                 
-                $mitarbeiterInfo[$key] = $val;
+                $mitarbeiterInfo[$key] = htmlspecialchars(stripslashes(trim($val)));
                
             }
 
@@ -93,8 +93,13 @@ class MitarbeiterController
                 if(empty($error))
                 {
                     $this->mitarbeiterModel->setMitarbeiterInfo('',$mitarbeiterInfo);
+
+                    session_start();
+                        $x = $_SESSION['sessionName'];
+                        $y = $_SESSION['sessionId'];
                     session_write_close();
-                    header('Location: index.php?seite=mitarbeiterDaten&' . $_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
+                    
+                    header('Location: index.php?seite=mitarbeiterDaten&' . $x . '=' . $y);
                     exit();
                 }
                 else
@@ -107,9 +112,14 @@ class MitarbeiterController
 
             if($action === "zurück")
             {
-                $this->mitarbeiterModel->setMitarbeiterInfo('',$mitarbeiterInfo);
+                session_start();
+                    $x = $_SESSION['sessionName'];
+                    $y = $_SESSION['sessionId'];
                 session_write_close();
-                header('Location: index.php?seite=mandant&' .$_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
+
+                $this->mitarbeiterModel->setMitarbeiterInfo('',$mitarbeiterInfo);
+                
+                header('Location: index.php?seite=mandant&' .$x . '=' . $y);
                 exit;
             }
 

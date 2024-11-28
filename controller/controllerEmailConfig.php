@@ -22,7 +22,7 @@
 
             if($_SERVER['REQUEST_METHOD'] === 'POST')
             {
-                $action = $_POST['action']?? '';
+                $action = $_POST['action'] ?? '';
                 $emailliste = [];
                 $error ='';
 
@@ -41,7 +41,7 @@
                 {
                     $val = $val ? 1 : 0 ;
                 }
-                    $emailliste[$key] = $val;
+                    $emailliste[$key] = htmlspecialchars(stripslashes(trim($val)));
                 }
 
                 if($action === 'weiter')
@@ -84,8 +84,12 @@
                     }
                     else
                     {
+                        session_start();
+                            $x = $_SESSION['sessionName'];
+                            $y = $_SESSION['sessionId'];
                         session_write_close();
-                        header('Location: index.php?seite=emailVorlage&'.$_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
+
+                        header('Location: index.php?seite=emailVorlage&'.$x . '=' . $y);
                         exit();
                     }
                     
@@ -94,8 +98,11 @@
                 if($action === 'zurück')
                 {
                     $this->modelEmail->setEmailListe($emailliste);
+                    session_start();
+                        $x = $_SESSION['sessionName'];
+                        $y = $_SESSION['sessionId'];
                     session_write_close();
-                    header('Location: index.php?seite=mitarbeiterDaten&'.$_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
+                    header('Location: index.php?seite=mitarbeiterDaten&'.$x . '=' . $y);
                     exit();
                 }
             }

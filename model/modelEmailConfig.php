@@ -63,14 +63,7 @@
         function updateView($error)
         {
             session_start();
-                if(!empty($_SESSION['emailListe']))
-                {
-                    $elist = $_SESSION['emailListe'];
-                }
-                else
-                {
-                    $elist = [];
-                }
+                    $elist =$_SESSION['emailListe'] ?? '';
             session_write_close();
             $this->emailConfigView->render($error,$elist);
         }

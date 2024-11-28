@@ -50,7 +50,7 @@
                 <select id=<?=$vorgang ?> name=<?=$vorgang ?>>
                     <option value=""  <?= !isset($vorgangListe[$vorgang]) ? 'selected' : '' ?> > Wählen Sie ein Element aus.</option>
                     <?php for($i=1;$i<18;$i++):?>
-                        <option value=<?=$i ?> <?= isset($vorgangListe[$vorgang]) && $vorgangListe[$vorgang] === $i ? 'selected' : '' ?>> <?= $i ?> </option>
+                        <option value=<?=$i ?> <?= isset($vorgangListe[$vorgang]) && $vorgangListe[$vorgang] == $i ? 'selected' : '' ?>> <?= $i ?> </option>
                         
                     <?php endfor; ?>
                 </select><br><br>

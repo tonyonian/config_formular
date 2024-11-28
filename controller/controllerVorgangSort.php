@@ -25,7 +25,7 @@ class VorgangSortController
         {
             foreach($_POST as $key => $value)
             {
-                $vorgangSortRang[$key] = $value;
+                $vorgangSortRang[$key] = htmlspecialchars(stripslashes(trim($value)));
             }
 
             $action = $_POST['action'] ?? '';
@@ -33,15 +33,27 @@ class VorgangSortController
             if($action === 'weiter')
             {
                 $this->model->setVorgangRang($vorgangSortRang);
+
+                
+                session_start();
+                    $x = $_SESSION['sessionName'];
+                    $y = $_SESSION['sessionId'];
                 session_write_close();
-                header('Location: index.php?seite=zahlung&'.$_SESSION['sessionName'].'='.$_SESSION['sessionId']);
+
+                header('Location: index.php?seite=zahlung&'.$x.'='.$y);
                 exit();
             }
 
             if($action === 'zurueck')
             {
+                $this->model->setVorgangRang($vorgangSortRang);
+
+                session_start();
+                    $x = $_SESSION['sessionName'];
+                    $y = $_SESSION['sessionId'];
                 session_write_close();
-                header('Location: index.php?seite=menueSort&'.$_SESSION['sessionName'].'='.$_SESSION['sessionId']);
+
+                header('Location: index.php?seite=menueSort&'.$x.'='.$y);
             }
             
 

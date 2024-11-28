@@ -71,7 +71,9 @@
 
         function updateView($error,$name,$issetLogo)
         {
-            $logopfad = $_SESSION['mandantlogo'] ?? '';
+            session_start();
+                $logopfad = $_SESSION['mandantlogo'] ?? '';
+            session_write_close();
             $this->view->render($error,$name,$logopfad,$issetLogo);
         }
 

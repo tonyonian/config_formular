@@ -15,15 +15,22 @@
 <Doctype html>
 <html>
     <body>
-        	<img src="./images/LogoHeintze.png" />
-            <img src="./images/LogoGlorixx.png" />
+        <img src="./images/LogoHeintze.png" />
+        <img src="./images/LogoGlorixx.png" />
         <form action="" method="post" enctype="multipart/form-data">
             Zurück zur Startseite
             <input type="submit" id="zurück" name="action" value="zurück" >
             Weiter zur nächsten Seite
             <input type="submit"  name="action" value="weiter" >
             <br>
-            <h1><?php echo $_SESSION['mitarbeiterInfo']['benutzername']; ?> Persönliche Daten (freiwillige Angabe)</h1>
+            <h1>
+                <?php
+                    session_start();
+                    echo $_SESSION['mitarbeiterInfo']['benutzername'];
+                    session_write_close(); 
+                ?>
+                Persönliche Daten (freiwillige Angabe)
+            </h1>
             <br>
 
         
@@ -32,9 +39,10 @@
                 $config =array('Straße'=>'strasse', 'Hausnummer' => 'hausnummer', 'Postleitzahl' => 'plz', 'Stadt' => 'stadt', 
                                 'Land' => 'land', 'Telefon' => 'telefon', 'Mobil' => 'mobil', 'Fax' => 'fax', 'Email' => 'email', 'IBAN' => 'iban', 'BIC' => 'bic',
                                 'Bank' => 'bank');
+                session_start();
                 
+                foreach ($config as $name => $value): 
             ?>
-            <?php foreach ($config as $name => $value): ?>
                 <label for="<?= $value ?>"><?=$name ?>:</label>
                 <input type="<?php
                                     if($value == 'email')
@@ -44,12 +52,13 @@
                                     else{echo $value;} 
                                 ?>"
                             id="<?= $value ?>" name="<?= $value ?>"  
-                            value="<?= isset($_SESSION['mitarbeiterDaten'][$value]) ? htmlspecialchars(trim($_SESSION['mitarbeiterDaten'][$value])) : '' ?>"/>
+                            value="<?= isset($_SESSION['mitarbeiterDaten'][$value]) ? htmlspecialchars(stripslashes(trim($_SESSION['mitarbeiterDaten'][$value]))) : '' ?>"/>
                 <br><br>
                 
             <?php endforeach;?>
             <label for="bemerkung">Bemerkung:</label>
-            <textarea name="bemerkung" cols="40" rows="5" ><?= isset($_SESSION['mitarbeiterDaten']['bemerkung']) ? htmlspecialchars(trim($_SESSION['mitarbeiterDaten']['bemerkung'])) : '' ?></textarea><br>
+            <textarea name="bemerkung" cols="40" rows="5" ><?= isset($_SESSION['mitarbeiterDaten']['bemerkung']) ? htmlspecialchars(stripslashes(trim($_SESSION['mitarbeiterDaten']['bemerkung']))) : '' ?></textarea><br>
+            <?php session_write_close(); ?>
         </form>
     </body>
 </html>

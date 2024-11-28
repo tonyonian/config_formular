@@ -21,12 +21,12 @@
         <img src="./images/LogoGlorixx.png" />
         
         <h1>
-            Vorgangssortierung::
+            Währung und Zahlung 
             <?php
                 session_start();
-                $_SESSION['mandantname']; 
+                    echo $_SESSION['mandantname']; 
                 session_write_close();
-                ?>
+            ?>
         </h1>
 
         <h2>Bitte wählen Sie die Währungen aus, für die Sie eine Zahlung durchführen möchten:</h2>
@@ -44,15 +44,23 @@
                 'Kanadischer Dollar'=> array('kanadischeDollar','CAD','$'), 'Schweizer Franken' => array('schweizerFranken','CHF','Fr'),
                 'Chinesische Renminbi'  => array('chinesischeRenminbi','CNY','¥'), 'Schwedische Krone' => array('schwedischeKrone','SEK','Skr'),
                 'Neuseeländischer Dollar' => array('neuseelaendischerDollar','NZD','$')  );
+
+                foreach($waehrungNamen as $name => $vorgang):
             ?>
-
-
-            <?php foreach($waehrungNamen as $name => $vorgang):?>
-
-                <label for=<?=$vorgang[0]?>><?=$name?><?=$vorgang[1] ?><?=$vorgang[2] ?></label>
-                <input type="hidden" name="<?=$vorgang[0]?>" value="0">
-                <input type="checkbox" id=<?=$vorgang[0]?> name="<?=$vorgang[0]?>" ><br>
-                
+                    <label for=<?=$vorgang[0]?>><?=$name?><?=$vorgang[1] ?><?=$vorgang[2] ?></label>
+                    
+                    <?php 
+                        if (isset($waehrungListe[$vorgang[0]]) && $waehrungListe[$vorgang[0]] == 1): 
+                    ?>
+                            <input type="hidden" name="<?=$vorgang[0]?>" value="<?= $waehrungListe[$vorgang[0]] ?>">
+                            <input type="checkbox" id=<?=$vorgang[0]?> name="<?=$vorgang[0]?>" checked value="<?= $waehrungListe[$vorgang[0]] ?>">
+                    <?php 
+                        elseif(isset($waehrungListe[$vorgang[0]]) && $waehrungListe[$vorgang[0]] == 0): 
+                    ?>
+                            <input type="hidden" name="<?=$vorgang[0]?>" value=0>
+                            <input type="checkbox" id=<?=$vorgang[0]?> name="<?=$vorgang[0]?>">
+                    <?php endif; ?>
+                    <br>
             <?php endforeach;?>
         </form>
     </body>

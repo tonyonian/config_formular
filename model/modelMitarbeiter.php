@@ -85,15 +85,7 @@
         function updateView($error)
         {
             session_start();
-                if(!empty($_SESSION['mitarbeiterInfo']))
-                {
-                    $mitInfo = $_SESSION['mitarbeiterInfo'];
-                }
-                else
-                {
-                    $mitInfo=[];
-                }
-                
+                $mitInfo = $_SESSION['mitarbeiterInfo'] ?? '';
             session_write_close();
 
             $this->mitarbeiterView->render($error,$mitInfo);

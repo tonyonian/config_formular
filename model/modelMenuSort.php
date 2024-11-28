@@ -64,7 +64,7 @@
         function updateView()
         {
             session_start();
-                $menuSortRang = $_SESSION['menurang'];
+                $menuSortRang = $_SESSION['menurang'] ?? '';
             session_write_close();
             $this->view->render($menuSortRang);
         }

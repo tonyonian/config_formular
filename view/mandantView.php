@@ -38,12 +38,13 @@
             <h2>Neuer Mandant</h2>
 
             <?php if($error): ?>
-                <p style="color: red;"> <?=htmlspecialchars($error) ?></p>
+                <p style="color: red;"> <?=htmlspecialchars(stripslashes(trim($error))) ?></p>
             <?php endif; ?> 
             <!-- Mandanten Name eingeben -->
             <label for="name">Mandanten Name:</label>
+            <?php session_start(); ?>
             <input type="text"  name="name" value="<?=isset($_SESSION['mandantname']) ? htmlspecialchars(stripslashes(trim($_SESSION['mandantname']))): '' ?>" ><br>
-                
+            <?php session_write_close(); ?>
                 
             <!-- Logo hochladen -->
             <label for="logo">Datei (PNG/JPG, max. 600x800):</label>

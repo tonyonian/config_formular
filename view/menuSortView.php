@@ -32,7 +32,7 @@
             <h2>Menüsortierung:
                 <?php
                     session_start();
-                    echo $_SESSION['mandantname']; 
+                        echo $_SESSION['mandantname']; 
                     session_write_close();
                 ?>
             </h2>
@@ -50,17 +50,15 @@
                 $menuNamen =array('Artikel' => 'artikel','Kalender'=>'kalender','Kunde'=>'kunde','Projekt'=>'projekt','Lieferant'=>'lieferant','Ticket'=>'ticket',
                                     'Vorgang'=>'vorgang','Vertrag'=>'vertrag','Offene Posten'=>'offenePosten','Dienstleistung'=>'dienstleistungen','Lager'=>'lager','Produktion'=>'produktion',
                                     'Auswertung'=>'auswertung','Webshop'=>'webshop','Verleihartikel'=>'verleihartikel','Gerät'=>'geraet','Schnittstelle'=>'schnittstelle');
-            ?>
-
-            <?php foreach($menuNamen as $name => $menu):?>
-                <label for=<?=$menu ?>><?=$name ?>:</label>
-                <select id=<?=$menu ?> name=<?=$menu ?>>
-                    <option value="  <?= !isset($menuListe[$menu]) ? 'selected' : '' ?> "> Wählen Sie ein Element aus.</option>
-                    <?php for($i=1;$i<18;$i++):?>
-                        <option value=<?=$i ?> <?= isset($menuSortRang[$menu]) && $menuSortRang[$menu] === $i ? 'selected' : '' ?>> <?= $i ?> </option>
+                foreach($menuNamen as $name => $menu):?>
+                    <label for=<?=$menu ?>><?=$name ?>:</label>
+                    <select id=<?=$menu ?> name=<?=$menu ?>>
+                        <option value="" <?= !isset($menuSortRang[$menu]) ? 'selected' : '' ?> > Wählen Sie ein Element aus.</option>
+                        <?php for($i=1;$i<18;$i++):?>
+                            <option value=<?=$i ?> <?= isset($menuSortRang[$menu]) && $menuSortRang[$menu] == $i ? 'selected' : '' ?>> <?= $i ?> </option>
                         
-                    <?php endfor; ?>
-                </select><br>
+                        <?php endfor; ?>
+                    </select><br>
                 <br>
             <?php endforeach;?>
         </form>

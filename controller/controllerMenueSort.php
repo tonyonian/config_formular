@@ -25,7 +25,7 @@ class MenuSortController
         {
             foreach($_POST as $key => $value)
             {
-                $menuSortRang[$key] = $value;
+                $menuSortRang[$key] = htmlspecialchars(stripslashes(trim($value)));
             }
 
             $action = $_POST['action'] ?? '';
@@ -34,16 +34,22 @@ class MenuSortController
             {
 
                 $this->model->setMenuRang($menuSortRang);
+                session_start();
+                    $x = $_SESSION['sessionName'];
+                    $y = $_SESSION['sessionId'];
                 session_write_close();
-                header('Location: index.php?seite=vorgang&'.$_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
+                header('Location: index.php?seite=vorgang&'.$x . '=' . $y);
                 exit();
             }
 
             if($action === 'zurück')
             {
                 $this->model->setMenuRang($menuSortRang);
+                session_start();
+                    $x = $_SESSION['sessionName'];
+                    $y = $_SESSION['sessionId'];
                 session_write_close();
-                header('Location: index.php?seite=design&'.$_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
+                header('Location: index.php?seite=design&'.$x . '=' . $y);
                 exit();
             }
             

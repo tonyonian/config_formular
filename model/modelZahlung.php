@@ -51,7 +51,6 @@
                 $stmt = $con->prepare($sql);
 
                 session_start();
-                echo var_dump($_SESSION['zahlungenListe']);
                     $stmt->execute($_SESSION['zahlungenListe']);
                 session_write_close();
                 
@@ -69,7 +68,10 @@
         
         function updateView()
         {
-            $this->zahlungView->render();
+            session_start();
+                $zlist = $_SESSION['zahlungenListe'] ?? '';
+            session_write_close();
+            $this->zahlungView->render($zlist);
         }
 
     }

@@ -29,24 +29,29 @@
                 
                 foreach($_POST as $key => $val)
                 {
-                    $mitarbeiterDaten[$key] = $val ?? 'null';
+                    $mitarbeiterDaten[$key] = htmlspecialchars(stripslashes(trim($val))) ?? 'null';
                 }
                 
                 
 
                 if($action === "weiter")
                 {
-                    
+                    session_start();
+                        $x = $_SESSION['sessionName'];
+                        $y = $_SESSION['sessionId'];
                     session_write_close();
                     $this->mitarbeiterDatenmodel->setMitarbeiterDaten($mitarbeiterDaten);
-                    header('Location: index.php?seite=emailConfig&' . $_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
+                    header('Location: index.php?seite=emailConfig&' . $x . '=' . $y);
                     exit();
                 }
                 if($action === "zurück")
                 {
                     $this->mitarbeiterDatenmodel->setMitarbeiterDaten($mitarbeiterDaten);
-                    session_write_close();   
-                    header('Location: index.php?seite=mitarbeiter&' . $_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
+                    session_start();
+                        $x = $_SESSION['sessionName'];
+                        $y = $_SESSION['sessionId'];
+                    session_write_close(); 
+                    header('Location: index.php?seite=mitarbeiter&' . $x . '=' . $y);
                     exit();
                 }
                 

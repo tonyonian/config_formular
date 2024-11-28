@@ -60,9 +60,11 @@ class DesignModel
 
     }
 
-    function updateView($error)
+    function updateView($error,)
     {
-        $designConfig = $_SESSION['design_config'];
+        session_start();
+            $designConfig = $_SESSION['design_config'] ?? '';
+        session_write_close();
         $this->designView->render($error,$designConfig);
     }
 }

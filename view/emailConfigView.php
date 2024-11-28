@@ -31,11 +31,11 @@
                 E-Mail
                 <?php
                     session_start();
-                    echo $_SESSION['mandantname']; 
+                        echo $_SESSION['mandantname']; 
                     session_write_close();
                 ?>
             </h2>
-            
+
             <h3>E-Mail Einstellungen:</h3>
 
             <?php if($error): ?>
@@ -44,8 +44,8 @@
 
             <?php
                 $config = array('SMTP Host' => 'smtpHost', 'SMTP Port' => 'smtpPort', 'SMTP Benutzer' => 'smtpBenutzer','SMTP Passwort' => 'smtpPasswort');
+                foreach ($config as $name => $value): 
             ?>
-            <?php foreach ($config as $name => $value): ?>
                 <label for="<?= $value ?>"><?=$name ?>:</label>
                 <input type="<?php
                                     if($value == 'smtpPasswort') 
@@ -59,20 +59,22 @@
                                     else{echo $value;} 
                                 ?>"
                             id="<?= $value ?>" name="<?= $value ?>"  
-                            value="<?= (isset($emailliste[$value]) && $value !== 'smtpPasswort') ? htmlspecialchars(trim($emailliste[$value])) : '' ?>"
+                            value="<?= (isset($emailliste[$value]) && $value !== 'smtpPasswort') ? htmlspecialchars(stripslashes(trim($emailliste[$value]))) : '' ?>"
                 /><br><br>
                 
-            <?php endforeach;?>
+            <?php 
+                endforeach;
+            ?>
 
         <label for="smtpVerschluesselung">SMTP Verschlüsselung:</label>
         <select id="smtpVerschluesselung" name="smtpVerschluesselung">
             <option value=""  <?= !isset($emailliste['smtpVerschluesselung']) ? 'selected' : '' ?>>Wählen Sie ein Element aus.</option>
-            <option value="true" <?= isset($emailliste['smtpVerschluesselung']) && $emailliste['smtpVerschluesselung'] === 1 ? 'selected' : '' ?>>Ja</option>
-            <option value="false" <?= isset($emailliste['smtpVerschluesselung']) && $emailliste['smtpVerschluesselung'] === 0 ? 'selected' : '' ?>>Nein</option>
+            <option value="true" <?= (isset($emailliste['smtpVerschluesselung']) && $emailliste['smtpVerschluesselung'] == 1) ? 'selected' : '' ?>>Ja</option>
+            <option value="false" <?= (isset($emailliste['smtpVerschluesselung']) && $emailliste['smtpVerschluesselung'] == 0) ? 'selected' : '' ?>>Nein</option>
         </select><br><br>
 
         <label for="bccEmail">BCC E-Mail*:</label>
-        <input type="email" id="bccEmail" name="bccEmail" value="<?= isset($emailliste['bccEmail']) ? htmlspecialchars(trim($emailliste['bccEmail'])) : '' ?>">
+        <input type="email" id="bccEmail" name="bccEmail" value="<?= isset($emailliste['bccEmail']) ? htmlspecialchars(stripslashes(trim($emailliste['bccEmail']))) : '' ?>">
 
         </form>
     </body>

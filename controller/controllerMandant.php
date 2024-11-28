@@ -129,8 +129,12 @@
                          
                             $this->mandantModel->setMandantInfo($name,$image);
 
+                            session_start();
+                                $x = $_SESSION['sessionName'];
+                                $y = $_SESSION['sessionId'];
                             session_write_close();
-                            header('Location: index.php?seite=mitarbeiter&' . $_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
+
+                            header('Location: index.php?seite=mitarbeiter&' . $x . '=' . $y);
                             exit;
                         }
                         else
@@ -153,8 +157,12 @@
 
                 if($action === "zurück")
                 {
+                    session_start();
+                        $x = $_SESSION['sessionName'];
+                        $y = $_SESSION['sessionId'];
                     session_write_close();
-                    header('Location: index.php?seite=start');
+
+                    header('Location: index.php?seite=start'. $x.'='.$y);
                     exit;
                 }
             }

@@ -63,9 +63,10 @@
 
         function updateView()
         {
-            
+            session_start();
                 $rang = $_SESSION['vorgangrang'] ?? [];
-                $this->view->render($rang);
+            session_write_close();
+            $this->view->render($rang);
            
         }
     }

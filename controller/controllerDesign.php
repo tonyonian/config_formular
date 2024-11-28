@@ -26,7 +26,7 @@ class DesignController
         {
             foreach($_POST as $key => $val)
             {
-                $designConfig[$key]=$val;
+                $designConfig[$key]=htmlspecialchars(stripslashes(trim($val)));
             } 
 
             $action = $_POST['action'];
@@ -34,15 +34,22 @@ class DesignController
             if($action === 'weiter')
             {
                     $this->model->setDesignConfig($designConfig);
-                    header('Location: index.php?seite=menueSort&'.$_SESSION['sessionName'].'='.$_SESSION['sessionId']);
+                    session_start();
+                        $x = $_SESSION['sessionName'];
+                        $y = $_SESSION['sessionId'];
+                    session_write_close();
+                    header('Location: index.php?seite=menueSort&'.$x.'='.$y);
                     exit();
             }
 
             if($action === 'zurück')
             {
                 $this->model->setDesignConfig($designConfig);
+                session_start();
+                    $x = $_SESSION['sessionName'];
+                    $y = $_SESSION['sessionId'];
                 session_write_close();
-                header('Location: index.php?seite=emailVorlage&'.$_SESSION['sessionName'] . '=' . $_SESSION['sessionId']);
+                header('Location: index.php?seite=emailVorlage&'.$x . '=' . $y);
                 exit();
             }
 
