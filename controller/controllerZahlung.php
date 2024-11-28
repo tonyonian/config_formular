@@ -28,11 +28,11 @@ class ZahlungController
 
             foreach ($_POST as $key => $value)
             {
-                if($value === 'on')
+                if($value == 1)
                 {
                     $value = 1;
                 }
-                if($value === 'off')
+                if($value == 2)
                 {
                     $value = 0;
                 }

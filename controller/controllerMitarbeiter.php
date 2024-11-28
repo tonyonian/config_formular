@@ -42,20 +42,28 @@ class MitarbeiterController
                     $val = $val ? 1 : 0 ;
                 }
                 
-                $mitarbeiterInfo[$key] = htmlspecialchars(stripslashes(trim($val)));
+                $val = trim($val);
+                $val =  htmlspecialchars($val, ENT_QUOTES, 'UTF-8');
+                $mitarbeiterInfo[$key] = $val;
                
             }
 
 
             if($action === "weiter")
             {
-
+                
+                
                 foreach($mitarbeiterInfo as $key => $val)
                 {
-                    if($val==='' || $val===NULL)
+                    
+                    if($val==='' || $val===NULL )
                     {    
-                        $error = "Bitte alle Felder ausfüllen.";
-                        break;
+                        if(($key === 'apiSchluessel' && $mitarbeiterInfo['apiZugang'] == 1))
+                        {
+                            $error = "Bitte alle Felder ausfüllen.";
+                            break;
+                        }
+                        
                     }
                     else if($key === 'email' || $key === 'eMailBCC')
                     {
