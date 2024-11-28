@@ -26,6 +26,7 @@ class ZahlungController
             {
                 $value = 1;
             }
+            
             $zahlungListe[$key] = htmlspecialchars(stripslashes(trim($value)));
         }
 
