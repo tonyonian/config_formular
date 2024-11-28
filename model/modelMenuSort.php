@@ -54,8 +54,9 @@
             }
             catch (PDOException $e)
             {
-                echo "".$e->getMessage();
-                echo "menusoert";
+                echo $e->getMessage();
+                echo var_dump($_SESSION['menurang']);
+                echo "menuSort";
                 die();
             }
             

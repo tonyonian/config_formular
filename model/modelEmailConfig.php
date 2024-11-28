@@ -54,7 +54,8 @@
             catch (PDOException $e)
             { 
                 echo $e->getMessage();
-                echo "Email";
+                echo var_dump($_SESSION['emailListe']);
+                echo "email";
                 die();
             }
           

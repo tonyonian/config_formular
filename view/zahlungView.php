@@ -52,13 +52,11 @@
                     <?php 
                         if (isset($waehrungListe[$vorgang[0]]) && $waehrungListe[$vorgang[0]] == 1): 
                     ?>
-                            
                             <input type="checkbox" id=<?=$vorgang[0]?> name="<?=$vorgang[0]?>" checked value="1">
-                    <?php 
-                        elseif(isset($waehrungListe[$vorgang[0]]) && $waehrungListe[$vorgang[0]] == 0): 
-                    ?>
+                    <?php else: ?>
                             <input type="hidden" name="<?=$vorgang[0]?>" value=0>
                             <input type="checkbox" id=<?=$vorgang[0]?> name="<?=$vorgang[0]?>">
+                    
                     <?php endif; ?>
                     <br>
             <?php endforeach;?>

@@ -61,7 +61,8 @@
             catch (PDOException $e)
             {
                 echo $e->getMessage();
-                echo "zahlungen";
+                echo var_dump($_SESSION['zahlungenListe']);
+                echo "zahlung";
                 die();
             }  
         }

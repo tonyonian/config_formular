@@ -157,12 +157,11 @@
 
                 if($action === "zurück")
                 {
+                  
                     session_start();
-                        $x = $_SESSION['sessionName'];
-                        $y = $_SESSION['sessionId'];
+                        $_SESSION = array();
                     session_write_close();
-
-                    header('Location: index.php?seite=start'. $x.'='.$y);
+                    header('Location: index.php?seite=start');
                     exit;
                 }
             }

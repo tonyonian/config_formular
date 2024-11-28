@@ -54,8 +54,9 @@
             }
             catch (PDOException $e)
             {
-                echo "Error: ".$e->getMessage();
-                echo "Vorgang";
+                echo $e->getMessage();
+                echo var_dump($_SESSION['vorgangrang']);
+                echo "vorgangSort";
                 die();
             }
           

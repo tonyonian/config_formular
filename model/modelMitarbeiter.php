@@ -78,7 +78,10 @@
                 }
                 catch (PDOException $e) 
                 {
-                    echo "Fehler: " . $e->getMessage();
+                    echo $e->getMessage();
+                    echo var_dump($_SESSION['mitarbeiterInfo']);
+                    echo "mitarbeiter";
+                die();;
                 }
         }
 

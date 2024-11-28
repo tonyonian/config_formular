@@ -51,8 +51,9 @@ class DesignModel
         }
         catch (PDOException $e)
         {
-            echo "Error: ".$e->getMessage();
-            echo "design";
+            echo $e->getMessage();
+            echo var_dump($_SESSION['design_config']);
+            echo "design_config";
             die();
         }
        
