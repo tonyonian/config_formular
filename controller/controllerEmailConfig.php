@@ -68,10 +68,6 @@
                     {
                         $error = "Bitte eine gültige SMTP-Benutzer-E-Mail-Adresse eingeben.";
                     }     
-                   else if(strlen($emailliste['smtpPasswort']) < 1)
-                   {
-                       $error = "Das Passwort darf nicht leer sein";
-                   }
                    
                     else if(!filter_var($emailliste['bccEmail'], FILTER_VALIDATE_EMAIL))  //Validierung der BCC E-Mail
                     {

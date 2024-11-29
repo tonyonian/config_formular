@@ -108,7 +108,7 @@ class MitarbeiterController
                    
                    if($key === 'firmatel' || $key === 'firmamobil' || $key === 'firmafax')
                    {
-                      
+                       
                       if (ctype_digit($val)) 
                       { 
                         $val = intval($val);
