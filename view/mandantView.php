@@ -44,7 +44,8 @@
             <?php 
                 $error = trim( $error );
                 $error = htmlspecialchars($error,ENT_QUOTES, 'UTF-8' );
-            if($error): ?>
+                if($error): 
+            ?>
                 <p style="color: red;"> <?= $error ?></p>
             <?php endif; ?> 
 
@@ -52,12 +53,12 @@
             <label for="name">Mandanten Name:</label>
             <?php 
                 session_start();
-                    $name = trim($_SESSION['mandantname']);
+                    $name = trim(isset($_SESSION['mandantname']) ? $_SESSION['mandantname'] : '');
                     $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
                 session_write_close();
             ?>
 
-            <input type="text"  name="name" value="<?=isset($name) ? $name : '' ?>" ><br>
+            <input type="text"  name="name" value="<?=$name ?>" ><br>
                 
             <!-- Logo hochladen -->
             <label for="logo">Datei (PNG/JPG, max. 600x800):</label>
