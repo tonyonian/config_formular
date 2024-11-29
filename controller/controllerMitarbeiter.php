@@ -101,6 +101,10 @@ class MitarbeiterController
                    {
                        $error = "Das Passwort muss mindestens eine Zahl enthalten";
                    }
+                   else if(!preg_match("#[!§$%&/()=?`*+~.,_:;<>|@{}\[\]-]#", $mitarbeiterInfo['passwort']))
+                   {
+                       $error = "Das Passwort muss mindestens ein Sonderzeichen enthalten";
+                   }
                    
                    if($key === 'firmatel' || $key === 'firmamobil' || $key === 'firmafax')
                    {
