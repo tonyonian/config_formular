@@ -30,21 +30,34 @@
             <input type="hidden" name="issetLogo" id="issetLogo" value="<?= $issetLogo ?>" >
             <input type="hidden" name="image" id="image" value="<?= $zieldatei ?>" >
 
-            Zurück zur Startseite
-            <input type="submit" id="zurück" name="action" value="zurück" >
-            Weiter zur nächsten Seite
-            <input type="submit" id="weiter" name="action" value="weiter" >
-            <br>
+            <!-- Navigation -->
+            <p>
+                Zurück zur Startseite
+                <input type="submit" id="zurück" name="action" value="zurück" >
+                Weiter zur nächsten Seite
+                <input type="submit" id="weiter" name="action" value="weiter" >
+            </p>
+            
             <h2>Neuer Mandant</h2>
 
-            <?php if($error): ?>
-                <p style="color: red;"> <?=htmlspecialchars(stripslashes(trim($error))) ?></p>
+            <!-- Fehlerbehandlung -->
+            <?php 
+                $error = trim( $error );
+                $error = htmlspecialchars($error,ENT_QUOTES, 'UTF-8' );
+            if($error): ?>
+                <p style="color: red;"> <?= $error ?></p>
             <?php endif; ?> 
+
             <!-- Mandanten Name eingeben -->
             <label for="name">Mandanten Name:</label>
-            <?php session_start(); ?>
-            <input type="text"  name="name" value="<?=isset($_SESSION['mandantname']) ? htmlspecialchars(stripslashes(trim($_SESSION['mandantname']))): '' ?>" ><br>
-            <?php session_write_close(); ?>
+            <?php 
+                session_start();
+                    $name = trim($_SESSION['mandantname']);
+                    $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+                session_write_close();
+            ?>
+
+            <input type="text"  name="name" value="<?=isset($name) ? $name : '' ?>" ><br>
                 
             <!-- Logo hochladen -->
             <label for="logo">Datei (PNG/JPG, max. 600x800):</label>
@@ -52,10 +65,14 @@
 
             <input type="submit" id="hochladen" name="action" value="hochladen" >
             
-            
+            <!-- Logo anzeigen, falls vorhanden -->
             <?php if ($zieldatei): ?>
                 <p>Dein Logo</p>
-                <img src="<?= htmlspecialchars(stripslashes(trim($zieldatei))) ?>" alt="Logo" style="max-width: 600px; max-height: 800px;" />
+                <?php 
+                    $ziedatei = trim($zieldatei);
+                    $zieldatei = htmlspecialchars($zieldatei, ENT_QUOTES, 'UTF-8');
+                ?>
+                <img src="<?= $zieldatei ?>" alt="Logo" style="max-width: 600px; max-height: 800px;" />
             <?php endif; ?>   
             <br>
         </form>
