@@ -77,6 +77,29 @@ class MitarbeiterController
                    {
                         $error = "Passwörter stimmen nicht überein.";
                         break;
+                   }else if(empty($mitarbeiterInfo['passwort']))
+                   {
+                       $error = "Das Passwort ist optional";
+                   }
+                     
+                   else if(strlen($mitarbeiterInfo['passwort']) < 8)
+                   {
+                       $error = "Das Passwort muss mindestens 8 Zeichen lang sein";
+                   }
+                     
+                   else if(!preg_match("/[a-z]/", $mitarbeiterInfo['passwort']))
+                   {
+                       $error = "Das Passwort muss mindestens einen Kleinbuchstaben enthalten";
+                   }
+                     
+                   else if(!preg_match("/[A-Z]/", $mitarbeiterInfo['passwort']))
+                   {
+                       $error = "Das Passwort muss mindestens einen Großbuchstaben enthalten";
+                   }
+                     
+                   else if(!preg_match("/[0-9]/", $mitarbeiterInfo['passwort']))
+                   {
+                       $error = "Das Passwort muss mindestens eine Zahl enthalten";
                    }
                    
                    if($key === 'firmatel' || $key === 'firmamobil' || $key === 'firmafax')
