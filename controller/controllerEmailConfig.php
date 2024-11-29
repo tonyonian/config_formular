@@ -68,10 +68,30 @@
                     {
                         $error = "Bitte eine gültige SMTP-Benutzer-E-Mail-Adresse eingeben.";
                     }
-                    else if(strlen($emailliste['smtpPasswort']) < 8)
-                    {
-                        $error = "Bitte ein Passwort mit mindestens 8 Zeichen eingeben.";
-                    }
+                   else if(empty($emailliste['smtpPasswort']))
+                   {
+                       $error = "Das Passwort ist optional";
+                   }
+                     
+                   else if(strlen($emailliste['smtpPasswort']) < 8)
+                   {
+                       $error = "Das Passwort muss mindestens 8 Zeichen lang sein";
+                   }
+                     
+                   else if(!preg_match("/[a-z]/", $emailliste['smtpPasswort']))
+                   {
+                       $error = "Das Passwort muss mindestens einen Kleinbuchstaben enthalten";
+                   }
+                     
+                   else if(!preg_match("/[A-Z]/", $emailliste['smtpPasswort']))
+                   {
+                       $error = "Das Passwort muss mindestens einen Großbuchstaben enthalten";
+                   }
+                     
+                   else if(!preg_match("/[0-9]/", $emailliste['smtpPasswort']))
+                   {
+                       $error = "Das Passwort muss mindestens eine Zahl enthalten";
+                   }
                     else if(!filter_var($emailliste['bccEmail'], FILTER_VALIDATE_EMAIL))  //Validierung der BCC E-Mail
                     {
                         $error = "Bitte eine gültige BCC-E-Mail-Adresse eingeben.";
