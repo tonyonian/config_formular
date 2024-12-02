@@ -33,6 +33,7 @@
                 unset($_SESSION['mitarbeiterDaten']['action']);
                 $_SESSION['mitarbeiterDaten'] = array_merge(['mitarbeiter_mandant_name' => $_SESSION['mandantname'],
                 'mitarbeiter_benutzername' => $_SESSION['benutzername']],$_SESSION['mitarbeiterDaten']);
+                $_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']]['mitarbeiterDaten'] = $_SESSION['mitarbeiterDaten'];
             session_write_close();
             
         }

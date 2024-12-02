@@ -35,29 +35,43 @@
                 unset($_SESSION['mitarbeiterInfo']['action']);
                 $_SESSION['mitarbeiterInfo'] = array_merge(['mandant_name' => $_SESSION['mandantname']],$_SESSION['mitarbeiterInfo'] );
                 $_SESSION['benutzername'] = $_SESSION['mitarbeiterInfo']['benutzername'];
-                $_SESSION['anzahlMitarbeiter'] = count($_SESSION['mitarbeiterList']);
-                $_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']] = $_SESSION['setMitarbeiterInfo'];
-            session_write_close();
+                
+                if(!empty($_SESSION['neuerArbeiter']))
+                {
+                    if(!isset($_SESSION['mitarbeiterListe']))
+                    {
+                        $_SESSION['mitarbeiterListe'] = [];
+                    }
+                    
+                    $_SESSION['anzahlMitarbeiter'] = count($_SESSION['mitarbeiterListe']);
+                    $_SESSION['neuerArbeiter'] = false;
+                }
+                else if(!empty($error))
+                {
+                    $_SESSION['anzahlMitarbeiter'] = (isset($_SESSION['mitarbeiterListe']) && isset($_SESSION['mitarbeiterListe'])) ? count($_SESSION['mitarbeiterListe'])-1 : 0;
+                   
+                }
 
-            
-            if($error)
-            {
-                $this->updateView($error,$mitabeiterInfo);
-            }
-        }
+                $_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']] = $_SESSION['mitarbeiterInfo']; 
 
-        function saveToDb()
-        {
-            session_start();
                 $saltedPasswort =$_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']]['passwort'];
                 $saltedApiKey = $_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']]['apiSchluessel'];
                 $saltedPasswort = password_hash($saltedPasswort, PASSWORD_DEFAULT);
                 $saltedApiKey = password_hash($saltedApiKey, PASSWORD_DEFAULT);
                 $_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']]['passwort'] =$saltedPasswort;
                 $_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']]['apiSchluessel'] =$saltedApiKey;
+            
             session_write_close();
 
             
+            if($error)
+            {
+                $this->updateView($error);
+            }
+        }
+
+        function saveToDb()
+        {
 
             try
             {
@@ -88,9 +102,9 @@
         function updateView($error)
         {
             session_start();
-                $mitInfo = $$_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']] ?? '';
+                if(!empty($_SESSION['neuerArbeiter']))
+                    $_SESSION['mitarbeiterInfo'] = [];
             session_write_close();
-
-            $this->mitarbeiterView->render($error,$mitInfo);
+            $this->mitarbeiterView->render($error);
         }
     }

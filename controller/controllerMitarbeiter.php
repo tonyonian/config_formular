@@ -10,7 +10,7 @@
 class MitarbeiterController
 {
     private $mitarbeiterModel;
-
+    
     function __construct($mitarbeiterModel)
     {
         $this->mitarbeiterModel = $mitarbeiterModel;
@@ -51,8 +51,7 @@ class MitarbeiterController
 
             if($action === "weiter")
             {
-                
-                
+
                 foreach($mitarbeiterInfo as $key => $val)
                 {
                     
@@ -79,7 +78,7 @@ class MitarbeiterController
                         break;
                    }else if(empty($mitarbeiterInfo['passwort']))
                    {
-                       $error = "Das Passwort ist optional";
+                       $error = "Das Passwort ist nicht optional";
                    }
                      
                    else if(strlen($mitarbeiterInfo['passwort']) < 8)
@@ -132,8 +131,8 @@ class MitarbeiterController
                     session_start();
                         $x = $_SESSION['sessionName'];
                         $y = $_SESSION['sessionId'];
+                        $_SESSION['reload'] = false;
                     session_write_close();
-                    
                     header('Location: index.php?seite=mitarbeiterDaten&' . $x . '=' . $y);
                     exit();
                 }
@@ -160,7 +159,7 @@ class MitarbeiterController
 
         }
         
-        $this->mitarbeiterModel->updateView('','');
+        $this->mitarbeiterModel->updateView('');
     }
     
     

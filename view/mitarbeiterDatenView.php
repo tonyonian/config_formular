@@ -29,8 +29,8 @@
             <h1>
                 <?php
                     session_start();
-                    echo $_SESSION['mitarbeiterInfo']['benutzername'];
-                    session_write_close(); 
+                        echo $_SESSION['mitarbeiterInfo']['benutzername'];
+                    session_write_close();
                 ?>
                 Persönliche Daten (freiwillige Angabe)
             </h1>

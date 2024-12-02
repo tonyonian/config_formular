@@ -9,7 +9,7 @@
  */
     class MitarbeiterView
     {
-        public function render($error='',$mitarbeiterInfo=[])
+        public function render($error='')
         {
 ?>
 <Doctype html>
@@ -57,6 +57,11 @@
                             if($val == 'passwort' || $val == 'passwortOK') 
                             { 
                                 echo 'password';
+                                if(isset($_SESSION['mitarbeiterInfo'][$val]))
+                                {
+                                    $_SESSION['mitarbeiterInfo'][$val] = '';
+                                }
+
                             }
                             else if($val == 'email' || $val == 'bccEmail') 
                             {
@@ -64,39 +69,45 @@
                             }
                             else{echo $val;} 
                         ?>"
-                    id="<?= $val ?>" name="<?= $val ?>"  
-                    value="<?= (isset($mitarbeiterInfo[$val]) &&  $val !== 'passwort') ? htmlspecialchars(stripslashes(trim($mitarbeiterInfo[$val]))) : '' ?>"
+                    id="<?= $val ?>" name="<?= $val ?>"
+                    <?php 
+                        $datVal = isset($_SESSION['mitarbeiterInfo'][$val]) ? trim($_SESSION['mitarbeiterInfo'][$val]) : ''; 
+                        $datVal = htmlspecialchars($datVal, ENT_QUOTES, 'UTF-8'); 
+                    ?>
+                    value="<?= $datVal ?>"
         />
         <br><br>
             
         <?php 
             endforeach; 
-            session_write_close();
         ?>
        
         <label for="name">Aktiviert:</label>
         <select id="aktiviert" name="aktiviert">    
-            <option value=""  <?= !isset($mitarbeiterInfo['aktiviert']) ? 'selected' : '' ?>>Wählen Sie ein Element aus.</option>
-            <option value="true" <?= isset($mitarbeiterInfo['aktiviert']) && $mitarbeiterInfo['aktiviert'] == 1 ? 'selected' : '' ?>>Ja</option>
-            <option value="false" <?= isset($mitarbeiterInfo['aktiviert']) && $mitarbeiterInfo['aktiviert'] == 0 ? 'selected' : '' ?>>Nein</option>
+            <option value=""  <?= !isset($_SESSION['mitarbeiterInfo']['aktiviert']) ? 'selected' : '' ?>>Wählen Sie ein Element aus.</option>
+            <option value="true" <?= isset($_SESSION['mitarbeiterInfo']['aktiviert']) && $_SESSION['mitarbeiterInfo']['aktiviert'] == 1 ? 'selected' : '' ?>>Ja</option>
+            <option value="false" <?= isset($_SESSION['mitarbeiterInfo']['aktiviert']) && $_SESSION['mitarbeiterInfo']['aktiviert'] == 0 ? 'selected' : '' ?>>Nein</option>
         </select><br><br>
 
         <label for="name">Anmeldung erlaubt:</label>
         <select id="anmeldungOk" name="anmeldungOk">
-            <option value=""  <?= !isset($mitarbeiterInfo['anmeldungOk']) ? 'selected' : '' ?>>Wählen Sie ein Element aus.</option>
-            <option value="true" <?= (isset($mitarbeiterInfo['anmeldungOk']) && $mitarbeiterInfo['anmeldungOk'] == 1) ? 'selected' : '' ?>>Ja</option>
-            <option value="false" <?= (isset($mitarbeiterInfo['anmeldungOk']) && $mitarbeiterInfo['anmeldungOk'] == 0) ? 'selected' : '' ?>>Nein</option>
+            <option value=""  <?= !isset($_SESSION['mitarbeiterInfo']['anmeldungOk']) ? 'selected' : '' ?>>Wählen Sie ein Element aus.</option>
+            <option value="true" <?= (isset($_SESSION['mitarbeiterInfo']['anmeldungOk']) && $_SESSION['mitarbeiterInfo']['anmeldungOk'] == 1) ? 'selected' : '' ?>>Ja</option>
+            <option value="false" <?= (isset($_SESSION['mitarbeiterInfo']['anmeldungOk']) && $_SESSION['mitarbeiterInfo']['anmeldungOk'] == 0) ? 'selected' : '' ?>>Nein</option>
         </select><br><br>
 
         <label for="name">API Zugang:</label>
         <select id="apiZugang" name="apiZugang">
-            <option value="" <?= !isset($mitarbeiterInfo['apiZugang']) ? 'selected' : '' ?>>Wählen Sie ein Element aus.</option>
-            <option value="true" <?= (isset($mitarbeiterInfo['apiZugang']) && $mitarbeiterInfo['apiZugang'] == 1) ? 'selected' : '' ?>>Ja</option>
-            <option value="false" <?= (isset($mitarbeiterInfo['apiZugang']) && $mitarbeiterInfo['apiZugang'] == 0) ? 'selected' : '' ?>>Nein</option>
+            <option value="" <?= !isset($_SESSION['mitarbeiterInfo']['apiZugang']) ? 'selected' : '' ?>>Wählen Sie ein Element aus.</option>
+            <option value="true" <?= (isset($_SESSION['mitarbeiterInfo']['apiZugang']) && $_SESSION['mitarbeiterInfo']['apiZugang'] == 1) ? 'selected' : '' ?>>Ja</option>
+            <option value="false" <?= (isset($_SESSION['mitarbeiterInfo']['apiZugang']) && $_SESSION['mitarbeiterInfo']['apiZugang'] == 0) ? 'selected' : '' ?>>Nein</option>
         </select><br><br>
 
         <label for="name">API Schlüssel:</label>
-        <input type="text"  name="apiSchluessel" value="<?= isset($mitarbeiterInfo['apiSchluessel']) ? htmlspecialchars(stripslashes(trim($mitarbeiterInfo['apiSchluessel']))) : ''?>"  ><br>
+        <input type="password"  name="apiSchluessel" value=""  /><br>
+        <?php
+            session_write_close();
+        ?>
     </body>
 </html>
     

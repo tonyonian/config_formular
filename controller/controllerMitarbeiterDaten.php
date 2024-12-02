@@ -44,19 +44,33 @@
                         $y = $_SESSION['sessionId'];
                     session_write_close();
                     $this->mitarbeiterDatenmodel->setMitarbeiterDaten($mitarbeiterDaten);
-                    header('Location: index.php?seite=emailConfig&' . $x . '=' . $y);
+                    // header('Location: index.php?seite=emailConfig&' . $x . '=' . $y);   
+                    echo var_dump($_SESSION['mitarbeiterListe']);         
                     exit();
                 }
+
                 if($action === "zurück")
                 {
                     $this->mitarbeiterDatenmodel->setMitarbeiterDaten($mitarbeiterDaten);
                     session_start();
                         $x = $_SESSION['sessionName'];
                         $y = $_SESSION['sessionId'];
-                    session_write_close(); 
                     header('Location: index.php?seite=mitarbeiter&' . $x . '=' . $y);
                     exit();
                 }
+
+                if($action === "weiterer Mitarbaiter")
+                {
+                    $this->mitarbeiterDatenmodel->setMitarbeiterDaten($mitarbeiterDaten);
+                    session_start();
+                        $x = $_SESSION['sessionName'];
+                        $y = $_SESSION['sessionId'];
+                        $_SESSION['neuerArbeiter'] = true;
+                        $_SESSION['mitarbeiterDaten'] = [];
+                    header('Location: index.php?seite=mitarbeiter&' . $x . '=' . $y);
+                    exit();
+                }
+                
                 
             }
            
