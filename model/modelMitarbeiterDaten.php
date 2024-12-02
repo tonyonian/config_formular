@@ -24,7 +24,12 @@
         function setMitarbeiterDaten($mitarbeiterDaten)
         {
             session_start();
-                $_SESSION['mitarbeiterDaten']=[];
+            if(!isset($_SESSION['mitarbeiterDatenListe']))
+            {
+                $_SESSION['mitarbeiterDatenListe']=[];
+            }
+                
+                $_SESSION['mitarbeiterDaten'] =[];
                     
                 foreach ($mitarbeiterDaten as $key => $val)
                 {
@@ -33,7 +38,8 @@
                 unset($_SESSION['mitarbeiterDaten']['action']);
                 $_SESSION['mitarbeiterDaten'] = array_merge(['mitarbeiter_mandant_name' => $_SESSION['mandantname'],
                 'mitarbeiter_benutzername' => $_SESSION['benutzername']],$_SESSION['mitarbeiterDaten']);
-                $_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']]['mitarbeiterDaten'] = $_SESSION['mitarbeiterDaten'];
+
+                $_SESSION['mitarbeiterDatenListe'][$_SESSION['anzahlMitarbeiter']] = $_SESSION['mitarbeiterDaten'];
             session_write_close();
             
         }
@@ -41,7 +47,7 @@
         
 
 
-        function saveToDb()
+        function saveToDb($i)
         {
             try
             {
@@ -53,7 +59,7 @@
                 $stmt = $con->prepare($sql);
                 
                 session_start();
-                    $stmt->execute($_SESSION['mitarbeiterDaten']);
+                    $stmt->execute($_SESSION['mitarbeiterDatenListe'][$i]);
                 session_write_close();
                 
 
@@ -62,8 +68,8 @@
             catch (PDOException $e)
             {
                 echo $e->getMessage();
-                echo var_dump($_SESSION['mitarbeiterDaten']);
-                echo "mitarbeiterDaten";
+                echo var_dump($_SESSION['mitarbeiterDatenListe']);
+                echo $i. " = mitarbeiterDaten";
                 die();
             }
            

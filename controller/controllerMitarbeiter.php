@@ -131,7 +131,7 @@ class MitarbeiterController
                     session_start();
                         $x = $_SESSION['sessionName'];
                         $y = $_SESSION['sessionId'];
-                        $_SESSION['reload'] = false;
+                        $_SESSION['neuerMitabeiter'] = false;
                     session_write_close();
                     header('Location: index.php?seite=mitarbeiterDaten&' . $x . '=' . $y);
                     exit();

@@ -46,36 +46,46 @@ class ZahlungController
             {
                 $this->modelListe[7]->setZahlungenListe($zahlungListe);
 
-                foreach($this->modelListe as $model)
+               
+                for($i = 0; $i<8; $i++)
                 {
-                    $model->saveToDb();
+                    if($i == 1 || $i == 2) 
+                    {
+                        session_start();
+                            $len =$_SESSION['anzahlMitarbeiter'];
+                        session_write_close();
+                        
+                            for($j = 0; $j < $len+1; $j++)
+                            {
+                                $this->modelListe[$i]->saveToDb($j);
+                            }
+                    }
+                    else
+                    {
+                        $this->modelListe[$i]->saveToDb();
+                    }
+                    
                 }
 
-                session_start();
-                    // überarbeiten!!!
-                    // $_SESSION['mandanten_liste']=[
-                    //                                 $_SESSION['mandant'] => [
-                    //                                                             'name' => $_SESSION['mandantname'],
-                    //                                                             'logo'=>$_SESSION['image'],
-                    //                                                             'mitarbeiter' => [
-                    //                                                                                 'mitarbeiter_informationen' => $_SESSION['mitarbeiterInfo'],
-                    //                                                                                 'persoenliche_informationen'=> $_SESSION['mitarbeiterDaten']
-                    //                                                                             ],
-                    //                                                             'email_configuration' => $_SESSION['emailListe'],
-                    //                                                             'menue_sortierung' => $_SESSION['menurang'],
-                    //                                                             'vorgangs_sortierung' => $_SESSION['vorgangrang'],
-                    //                                                             'menue_design' => $_SESSION['design_config'],
-                    //                                                             'waehrungen_zahlungen'=> $_SESSION['zahlungenListe']
-                    //                                                         ]
-                    //                             ];
+                // session_start();
+                //     $_SESSION['mandanten_liste']=  
+                //     [
+                //         'name' => $_SESSION['mandantname'],
+                //         'logo'=>$_SESSION['image'],
+                //         'mitarbeiterListe' => $_SESSION['mitarbeiterListe'],
+                //         'mitarbeiterPrivateDaten' => $_SESSION['mitarbeiterDatenListe'],
+                //         'email_configuration' => $_SESSION['emailListe'],
+                //         'menue_sortierung' => $_SESSION['menurang'],
+                //         'vorgangs_sortierung' => $_SESSION['vorgangrang'],
+                //         'menue_design' => $_SESSION['design_config'],
+                //         'waehrungen_zahlungen'=> $_SESSION['zahlungenListe']
+                //     ];
+                                                
 
-                    // $_SESSION['json'] = json_encode($_SESSION['mandanten_liste']); //abspeichern in die DB nicht vergessen !!!
-
-                    // $x = $_SESSION['sessionName'];
-                    // $y = $_SESSION['sessionId'];
-
-                    $_SESSION = array();
-                session_destroy();
+                //     $_SESSION['json'] = json_encode($_SESSION['mandanten_liste']); //abspeichern in die DB nicht vergessen !!!
+                //     $_SESSION = array();
+                // session_destroy();
+                
                 header('Location: index.php?seite=ende');
                 exit();
             }

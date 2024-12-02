@@ -44,8 +44,7 @@
                         $y = $_SESSION['sessionId'];
                     session_write_close();
                     $this->mitarbeiterDatenmodel->setMitarbeiterDaten($mitarbeiterDaten);
-                    // header('Location: index.php?seite=emailConfig&' . $x . '=' . $y);   
-                    echo var_dump($_SESSION['mitarbeiterListe']);         
+                    header('Location: index.php?seite=emailConfig&' . $x . '=' . $y);
                     exit();
                 }
 

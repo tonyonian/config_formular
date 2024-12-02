@@ -36,19 +36,19 @@
                 $_SESSION['mitarbeiterInfo'] = array_merge(['mandant_name' => $_SESSION['mandantname']],$_SESSION['mitarbeiterInfo'] );
                 $_SESSION['benutzername'] = $_SESSION['mitarbeiterInfo']['benutzername'];
                 
-                if(!empty($_SESSION['neuerArbeiter']))
+                if(!isset($_SESSION['mitarbeiterListe']))
                 {
-                    if(!isset($_SESSION['mitarbeiterListe']))
-                    {
-                        $_SESSION['mitarbeiterListe'] = [];
-                    }
-                    
+                    $_SESSION['mitarbeiterListe'] = [];
+                }
+
+                if(!empty($_SESSION['neuerArbeiter']))
+                { 
                     $_SESSION['anzahlMitarbeiter'] = count($_SESSION['mitarbeiterListe']);
                     $_SESSION['neuerArbeiter'] = false;
                 }
-                else if(!empty($error))
+                else
                 {
-                    $_SESSION['anzahlMitarbeiter'] = (isset($_SESSION['mitarbeiterListe']) && isset($_SESSION['mitarbeiterListe'])) ? count($_SESSION['mitarbeiterListe'])-1 : 0;
+                    $_SESSION['anzahlMitarbeiter'] = $_SESSION['anzahlMitarbeiter'] >0 ? count($_SESSION['mitarbeiterListe'])-1 : count($_SESSION['mitarbeiterListe']);
                    
                 }
 
@@ -70,7 +70,7 @@
             }
         }
 
-        function saveToDb()
+        function saveToDb($i)
         {
 
             try
@@ -84,7 +84,7 @@
             
                 $stmt = $con->prepare($sql);
                 session_start();
-                    $stmt->execute($_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']]);
+                    $stmt->execute($_SESSION['mitarbeiterListe'][$i]);
                 session_write_close();
                 
 
@@ -93,8 +93,8 @@
             catch (PDOException $e)
             {
                 echo $e->getMessage();
-                echo var_dump($_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']]);
-                echo "mitarbeiter";
+                echo var_dump($_SESSION['mitarbeiterListe'][$i]);
+                echo $i." = mitarbeiter";
             die();;
             }
         }
