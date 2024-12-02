@@ -15,8 +15,6 @@
         private $pdo;
         private $mitarbeiterView;
 
-        private $name;
-        
         function __construct($pdo,$mitarbeiterView=null)
         {
             $this->pdo = $pdo;
@@ -37,6 +35,8 @@
                 unset($_SESSION['mitarbeiterInfo']['action']);
                 $_SESSION['mitarbeiterInfo'] = array_merge(['mandant_name' => $_SESSION['mandantname']],$_SESSION['mitarbeiterInfo'] );
                 $_SESSION['benutzername'] = $_SESSION['mitarbeiterInfo']['benutzername'];
+                $_SESSION['anzahlMitarbeiter'] = count($_SESSION['mitarbeiterList']);
+                $_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']] = $_SESSION['setMitarbeiterInfo'];
             session_write_close();
 
             
@@ -49,46 +49,46 @@
         function saveToDb()
         {
             session_start();
-                $saltedPasswort =$_SESSION['mitarbeiterInfo']['passwort'];
-                $saltedApiKey = $_SESSION['mitarbeiterInfo']['apiSchluessel'];
+                $saltedPasswort =$_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']]['passwort'];
+                $saltedApiKey = $_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']]['apiSchluessel'];
                 $saltedPasswort = password_hash($saltedPasswort, PASSWORD_DEFAULT);
                 $saltedApiKey = password_hash($saltedApiKey, PASSWORD_DEFAULT);
-                $_SESSION['mitarbeiterInfo']['passwort'] =$saltedPasswort;
-                $_SESSION['mitarbeiterInfo']['apiSchluessel'] =$saltedApiKey;
+                $_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']]['passwort'] =$saltedPasswort;
+                $_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']]['apiSchluessel'] =$saltedApiKey;
             session_write_close();
 
             
 
-                try
-                {
-                    $con = $this->pdo->connectionToDB();
-                    
-                    $sql = "INSERT INTO `mitarbeiter` (`mandant_name`, `benutzername`, `anrede`, `vorname`, `nachname`, `position`, `email`, 
-                            `bccEmail`, `firmaTelefon`, `firmaMobil`, `firmaFax`, `passwort`, `aktiviert`, `anmeldungOk`, `apiZugang`, `apiSchluessel`)
-                            VALUES (:mandant_name,:benutzername,  :anrede, :vorname, :nachname, :position, :email,
-                             :bccEmail, :firmaTelefon, :firmaMobil, :firmaFax, :passwort, :aktiviert ,:anmeldungOk, :apiZugang, :apiSchluessel)";
+            try
+            {
+                $con = $this->pdo->connectionToDB();
                 
-                    $stmt = $con->prepare($sql);
-                    session_start();
-                        $stmt->execute($_SESSION['mitarbeiterInfo']);
-                    session_write_close();
-                    
+                $sql = "INSERT INTO `mitarbeiter` (`mandant_name`, `benutzername`, `anrede`, `vorname`, `nachname`, `position`, `email`, 
+                        `bccEmail`, `firmaTelefon`, `firmaMobil`, `firmaFax`, `passwort`, `aktiviert`, `anmeldungOk`, `apiZugang`, `apiSchluessel`)
+                        VALUES (:mandant_name,:benutzername,  :anrede, :vorname, :nachname, :position, :email,
+                            :bccEmail, :firmaTelefon, :firmaMobil, :firmaFax, :passwort, :aktiviert ,:anmeldungOk, :apiZugang, :apiSchluessel)";
+            
+                $stmt = $con->prepare($sql);
+                session_start();
+                    $stmt->execute($_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']]);
+                session_write_close();
+                
 
-                    $con = null;
-                }
-                catch (PDOException $e) 
-                {
-                    echo $e->getMessage();
-                    echo var_dump($_SESSION['mitarbeiterInfo']);
-                    echo "mitarbeiter";
-                die();;
-                }
+                $con = null;
+            }
+            catch (PDOException $e)
+            {
+                echo $e->getMessage();
+                echo var_dump($_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']]);
+                echo "mitarbeiter";
+            die();;
+            }
         }
 
         function updateView($error)
         {
             session_start();
-                $mitInfo = $_SESSION['mitarbeiterInfo'] ?? '';
+                $mitInfo = $$_SESSION['mitarbeiterListe'][$_SESSION['anzahlMitarbeiter']] ?? '';
             session_write_close();
 
             $this->mitarbeiterView->render($error,$mitInfo);
