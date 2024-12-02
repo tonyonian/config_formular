@@ -67,24 +67,27 @@ class ZahlungController
                     
                 }
 
-                // session_start();
-                //     $_SESSION['mandanten_liste']=  
-                //     [
-                //         'name' => $_SESSION['mandantname'],
-                //         'logo'=>$_SESSION['image'],
-                //         'mitarbeiterListe' => $_SESSION['mitarbeiterListe'],
-                //         'mitarbeiterPrivateDaten' => $_SESSION['mitarbeiterDatenListe'],
-                //         'email_configuration' => $_SESSION['emailListe'],
-                //         'menue_sortierung' => $_SESSION['menurang'],
-                //         'vorgangs_sortierung' => $_SESSION['vorgangrang'],
-                //         'menue_design' => $_SESSION['design_config'],
-                //         'waehrungen_zahlungen'=> $_SESSION['zahlungenListe']
-                //     ];
+                session_start();
+                    $_SESSION['mandanten_liste']=  
+                    [
+                        'name' => $_SESSION['mandantname'],
+                        'logo'=>$_SESSION['image'],
+                        'mitarbeiterListe' => $_SESSION['mitarbeiterListe'],
+                        'mitarbeiterPrivateDaten' => $_SESSION['mitarbeiterDatenListe'],
+                        'email_configuration' => $_SESSION['emailListe'],
+                        'menue_sortierung' => $_SESSION['menurang'],
+                        'vorgangs_sortierung' => $_SESSION['vorgangrang'],
+                        'menue_design' => $_SESSION['design_config'],
+                        'waehrungen_zahlungen'=> $_SESSION['zahlungenListe']
+                    ];
                                                 
 
-                //     $_SESSION['json'] = json_encode($_SESSION['mandanten_liste']); //abspeichern in die DB nicht vergessen !!!
-                //     $_SESSION = array();
-                // session_destroy();
+                    $_SESSION['jsondata'] = json_encode($_SESSION['mandanten_liste']); //abspeichern in die DB nicht vergessen !!!
+                    $this->modelListe[8]->saveToDb($_SESSION['jsondata']);
+                    $_SESSION = array();
+                
+                session_destroy();
+                
                 
                 header('Location: index.php?seite=ende');
                 exit();

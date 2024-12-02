@@ -25,6 +25,7 @@
     require './model/modelVorgangSort.php';
     require './model/modelZahlung.php';
     require './model/modelDesign.php';
+    require './model/modelJson.php';
     require './controller/controllerMandant.php';
     require './controller/controllerMitarbeiter.php';
     require './controller/controllerMitarbeiterDaten.php';
@@ -131,9 +132,8 @@
             $zahlungView = new ZahlungView();
             $zahlungModel = new ZahlungModel($pdo,$zahlungView);
             $modelListe=array(new Mandant($pdo),new Mitarbeiter($pdo),new MitarbeiterDaten($pdo),new EmailConfig($pdo),
-            new DesignModel($pdo), new MenuSort($pdo), new VorgangSort($pdo),$zahlungModel);
+            new DesignModel($pdo), new MenuSort($pdo), new VorgangSort($pdo),$zahlungModel, new Json($pdo));
 
-            
             $zahlungController = new ZahlungController($modelListe);
             $zahlungController->handleRequest();
         break;
