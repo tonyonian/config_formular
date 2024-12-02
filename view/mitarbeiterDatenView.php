@@ -18,11 +18,14 @@
         <img src="./images/LogoHeintze.png" />
         <img src="./images/LogoGlorixx.png" />
         <form action="" method="post" enctype="multipart/form-data">
-            Zurück zur Startseite
-            <input type="submit" id="zurück" name="action" value="zurück" >
-            Weiter zur nächsten Seite
-            <input type="submit"  name="action" value="weiter" >
-            <br>
+
+            <!-- Navigation -->
+            <p>
+                Zurück zur Startseite
+                <input type="submit" id="zurück" name="action" value="zurück" >
+                Weiter zur nächsten Seite
+                <input type="submit" id="weiter" name="action" value="weiter" >
+            </p>
             <h1>
                 <?php
                     session_start();
@@ -40,6 +43,8 @@
                                 'Land' => 'land', 'Telefon' => 'telefon', 'Mobil' => 'mobil', 'Fax' => 'fax', 'Email' => 'email', 'IBAN' => 'iban', 'BIC' => 'bic',
                                 'Bank' => 'bank');
                 session_start();
+
+                
                 
                 foreach ($config as $name => $value): 
             ?>
@@ -51,14 +56,26 @@
                                     }
                                     else{echo $value;} 
                                 ?>"
-                            id="<?= $value ?>" name="<?= $value ?>"  
-                            value="<?= isset($_SESSION['mitarbeiterDaten'][$value]) ? htmlspecialchars(stripslashes(trim($_SESSION['mitarbeiterDaten'][$value]))) : '' ?>"/>
-                <br><br>
+
+                            id="<?= $value ?>" name="<?= $value ?>"
+
+                            <?php 
+                                $datVal = isset($_SESSION['mitarbeiterDaten'][$value]) ? trim($_SESSION['mitarbeiterDaten'][$value]) : ''; 
+                                $datVal = htmlspecialchars($datVal, ENT_QUOTES, 'UTF-8'); 
+                            ?>
+                            value="<?= $datVal ?>" />
+                <br><br><br>
                 
-            <?php endforeach;?>
+            <?php 
+            	endforeach;
+
+            ?>
             <label for="bemerkung">Bemerkung:</label>
-            <textarea name="bemerkung" cols="40" rows="5" ><?= isset($_SESSION['mitarbeiterDaten']['bemerkung']) ? htmlspecialchars(stripslashes(trim($_SESSION['mitarbeiterDaten']['bemerkung']))) : '' ?></textarea><br>
+            <textarea name="bemerkung" cols="40" rows="5" ><?= $datVal['bemerkung'] ?? '' ?></textarea><br>
             <?php session_write_close(); ?>
+            <p>
+                Ein weiteren Mitarbeiter hinzufügen
+                <input type="submit" id="neuMit" name="action" value="weiterer Mitarbaiter" >
         </form>
     </body>
 </html>
