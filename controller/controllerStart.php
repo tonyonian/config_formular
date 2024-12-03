@@ -12,16 +12,18 @@ class StartController
 
     function handleRequest()
     {
-        if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['start']))
+        if($_SERVER['REQUEST_METHOD'] == 'POST' && (($_POST['action']) === 'Starte Formular'))
         {
             session_start();
                 $x = $_SESSION['sessionName'];
                 $y = $_SESSION['sessionId'];
             session_write_close();
 
-            header('Location: index.php?seite=mitarbeiter&' . $x . '=' . $y);
+            header('Location: index.php?seite=mandant&' . $x . '=' . $y);
             exit;
         }
+
+        $this->start->render();
     }
 
 }

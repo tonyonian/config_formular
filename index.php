@@ -64,7 +64,7 @@
             $start = new StartSeite();
             $startController = new StartController($start);
 
-            $start->render();      
+            $startController->handleRequest();      
         break;
 
         case 'mandant':

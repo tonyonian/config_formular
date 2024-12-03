@@ -49,7 +49,7 @@
 
             <!-- <button onclick="window.location.href='index.php?seite=mandant '">Starte Formular</button> -->
 
-            <form>
+            <form action="" method="post">
                 <input type ="submit" name =action value="Starte Formular">
             </form>
 
