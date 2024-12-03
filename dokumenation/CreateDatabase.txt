@@ -79,7 +79,7 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `glorixx`.`menuesortierung` (
   `mandant_name` VARCHAR(45) NOT NULL,
-  `artikel INT NULL DEFAULT NULL,
+  `artikel' INT NULL DEFAULT NULL,
   `kalender` INT NULL DEFAULT NULL,
   `kunde` INT NULL DEFAULT NULL,
   `projekt` INT NULL DEFAULT NULL,
