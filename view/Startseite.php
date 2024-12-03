@@ -47,7 +47,11 @@
             oder auch auf YouTube unter <a href="http://www.youtube.com/@glorixxsoftware1735">www.youtube.com/@glorixxsoftware1735</a>
             <br><br>
 
-            <button onclick="window.location.href='index.php?seite=mandant '">Starte Formular</button>
+            <!-- <button onclick="window.location.href='index.php?seite=mandant '">Starte Formular</button> -->
+
+            <form>
+                <input type ="submit" name =action value="Starte Formular">
+            </form>
 
     </body>
 </html>
