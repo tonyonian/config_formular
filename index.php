@@ -34,6 +34,7 @@
     require './controller/controllerMenueSort.php';
     require './controller/controllerVorgangSort.php';
     require './controller/controllerZahlung.php';
+    require './controller/controllerStart.php';
     require './view/Startseite.php';
     require './view/mandantView.php';
     require './view/mitarbeiterView.php';
@@ -61,6 +62,8 @@
             session_destroy();
            
             $start = new StartSeite();
+            $startController = new StartController($start);
+
             $start->render();      
         break;
 
